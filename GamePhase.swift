@@ -1,6 +1,6 @@
 
 
-class  GamePhase
+public class  GamePhase
 {
     var board : Board 
  

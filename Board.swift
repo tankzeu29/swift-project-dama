@@ -1,14 +1,15 @@
 
 
-class Board
+public class Board
 {
 
 private var arr = [[String]]()
 private var header = ""
-private var footer = ""
+
 private let matrixLength = 25
 private let matrixWidth = 13
 private let startColumnOffset = "  "
+private let letters = [ "A" , "B", "C", "D", "E" , "F" , "G"]
 
 func getLength() -> Int
 {
@@ -20,14 +21,14 @@ func getWidth() -> Int
 }
 
 
-init()
+public init()
 {
  arr = Array(repeating: Array(repeating: BoardBoundElements.ILLEGAL_POSITION, count: matrixLength), count: matrixWidth)
    
    
 
  setHeader()
- setFooter()
+
 initializeMatrixHorizontal()
 initializeMatrixVerical()
 
@@ -83,7 +84,7 @@ func initializeMatrixVerical()
 
 
   var begin = 0
-  var finish = 12
+  var finish = (matrixLength - 1) / 2
   let middle = (finish + begin) / 2
   var step = 0;
   for position in 0...5{
@@ -130,7 +131,7 @@ func initializeMatrixVerical()
 func setHeader()
 {
 
-    let letters = [ "A" , "B", "C", "D", "E" , "F" , "G"]
+  
 
     let emptySpaces  = (matrixLength - 1) / letters.count
    
@@ -147,15 +148,6 @@ func setHeader()
       self.header = tempHeader
 }
 
-func setFooter()
-{
-    
-    var tempFooter = ""
-    for i in 1...7{
-      tempFooter +=  String(i) + "\n\n"
-    }
-    self.footer = tempFooter
-}
 
 func printBoard()
 {

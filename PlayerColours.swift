@@ -1,13 +1,13 @@
 
 
 
-class PlayerColours
+public class PlayerColours
 {
 
-  static let WHITE_FIGURE = "○"
-  static let BLACK_FIGURE = "●"
+  public static let WHITE_FIGURE = "○"
+ public  static let BLACK_FIGURE = "●"
 
-  static func getColour ( colour : PieceColour) -> String
+  public static func getColour ( colour : PieceColour) -> String
   {
     if(colour == PieceColour.WHITE)
     {
@@ -19,7 +19,7 @@ class PlayerColours
     }
   }
 
-  static func convertToPlayerColour ( colour : String) -> PieceColour
+  public static func convertToPlayerColour ( colour : String) -> PieceColour
   {
     if(colour == WHITE_FIGURE)
     {

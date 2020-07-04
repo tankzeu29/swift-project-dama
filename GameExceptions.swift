@@ -1,5 +1,5 @@
 
-enum NineMortisError: Error {
+public enum NineMortisError: Error {
     case runtimeError(String)
 
 

@@ -1,7 +1,7 @@
 
 
 
-enum  PieceColour
+public enum  PieceColour
 {
 
 case WHITE

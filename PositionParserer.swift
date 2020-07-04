@@ -494,7 +494,7 @@ static func findYMills(position : BoardPosition , offset : Int , board : Board) 
     print("possible moves 2")
    let secondPointY = position.getY() + offset
    let thirdPointY = secondPointY + offset
-   var allX = position.getX()
+   let allX = position.getX()
    var totalMills = 0 
 
      
@@ -503,7 +503,7 @@ do{
    let thirdPoint = try getPosition(xCordinate : allX  , yCordinate : thirdPointY, board : board)
    totalMills = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
   } catch NineMortisError.runtimeError(let errorMessage) {
-             
+      
    }
    catch
    {

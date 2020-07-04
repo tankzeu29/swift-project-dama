@@ -1,6 +1,6 @@
 
 
-class BoardBoundElements
+public class BoardBoundElements
 {
 
  static let HORIZONTAL_LINE = "-"

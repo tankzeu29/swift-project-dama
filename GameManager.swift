@@ -2,11 +2,11 @@
 
 
 
-class GameManager{
+public class GameManager{
 
   var board : Board
 
-  init( board : Board)
+ public  init( board : Board)
   {
     self.board = board
 
@@ -24,18 +24,10 @@ class GameManager{
    
   let gameInitializer = GameInitializer(gameBoard : board , player1 : player1 , player2: player2)
   gameInitializer.start()
-    //hacking for phase 2
- 
-
-
-
-
-
-
 
 
     print("PHASE 2 to begin")
-    print("From previous phase : \(gameInitializer.getFirstPlayer().info()) , \(gameInitializer.getSecondPlayer().info()) ")
+
     let gameMover = GameMover(gameBoard: board , player1 : gameInitializer.getFirstPlayer() , player2: gameInitializer.getSecondPlayer())
     gameMover.setStartPieceColour(colour :  gameInitializer.getFirstPlayer().getColour())
     gameMover.start()

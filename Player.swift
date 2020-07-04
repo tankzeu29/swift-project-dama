@@ -1,6 +1,6 @@
 
 
-class Player
+public class Player
 {
 
   var piecesColour = PieceColour.WHITE
@@ -10,11 +10,11 @@ class Player
   {
 
   }
-  init(colour : PieceColour)
+  public init(colour : PieceColour)
   {
     self.piecesColour = colour
   }
-  init(pieces : Int , colour : PieceColour)
+ public  init(pieces : Int , colour : PieceColour)
   {
     self.piecesColour = colour
  

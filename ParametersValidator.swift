@@ -1,10 +1,10 @@
 
 
-class ParametersValidator
+public class ParametersValidator
 {
 
-static let allowedLetters: [Character] = ("A"..."G").characters
-  static var allowedNumbers  : [Character] = ("1"..."7").characters
+private static let allowedLetters: [Character] = ("A"..."G").characters
+ private static let allowedNumbers  : [Character] = ("1"..."7").characters
 
 
 
@@ -45,11 +45,11 @@ static let allowedLetters: [Character] = ("A"..."G").characters
 
         guard isFlyingMoveAdj else
         {
-            throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) MUST NOT BE adjacent because u must fly ")
+            throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) Must not be  adjacent because you must fly ")
         }
        guard isNormalMoveFlyingMove else
         {
-             throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) MUST BE adjacent ")
+             throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) Must be adjacent ")
         }
  
 
@@ -72,7 +72,7 @@ static let allowedLetters: [Character] = ("A"..."G").characters
       let startY = startPosition.getY()
       let xOffset = offset.first
       let yOffset = offset.second
-      //print(" Found offset \(xOffset) \(yOffset)")
+
    
       let isAdjacent = vlaidateAdjHelper(endPosition : endPosition ,startX :startX + xOffset , startY: startY ) ||
      vlaidateAdjHelper(endPosition : endPosition , startX :startX - xOffset ,startY: startY ) ||

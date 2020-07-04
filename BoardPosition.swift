@@ -1,9 +1,10 @@
 
 
-class BoardPosition : Equatable
+public class BoardPosition : Equatable
 {
 
  private var xCordinate : Int
+ 
  
  private var yCordinate : Int
  private var colour : PieceColour
@@ -59,11 +60,11 @@ class BoardPosition : Equatable
    return "[\(xCordinate),\(yCordinate),\(colour)] "
  }
 
-    func equalTo(rhs: BoardPosition) -> Bool {
+   public func equalTo(rhs: BoardPosition) -> Bool {
        return getX() == rhs.getX() && getY() == rhs.getY() && getColour() == rhs.getColour()
     }
 
- static func ==(lhs: BoardPosition, rhs: BoardPosition) -> Bool {
+ public static func ==(lhs: BoardPosition, rhs: BoardPosition) -> Bool {
         return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY() && lhs.getColour() == rhs.getColour()
     }
 

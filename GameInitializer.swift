@@ -1,11 +1,11 @@
 
 
-class GameInitializer : GamePhase
+public class GameInitializer : GamePhase
 {
 
  private let totalFiguresToPlace = 18
  
-init( gameBoard : Board , player1 : Player , player2 : Player)
+public init( gameBoard : Board , player1 : Player , player2 : Player)
 {
    
     super.init(board : gameBoard , player1 : player1 , player2 : player2)
@@ -84,7 +84,7 @@ func start()
       }
     }
       board.printBoard()
-    
+    //end hacks
     
 
  

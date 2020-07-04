@@ -1,10 +1,10 @@
 
-class GameMover : GamePhase
+public class GameMover : GamePhase
 {
 
- var winner = PieceColour.EMPTY
 
-  init( gameBoard : Board , player1 : Player , player2 : Player)
+
+ public  init( gameBoard : Board , player1 : Player , player2 : Player)
 {
    
     super.init(board : gameBoard, player1 : player1 , player2 : player2)

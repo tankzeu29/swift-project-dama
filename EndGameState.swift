@@ -1,6 +1,6 @@
 
 
-enum EndGameState
+public enum EndGameState
 {
   case DRAW
   case PLAYER1_WINNER
