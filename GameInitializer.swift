@@ -31,7 +31,8 @@ public func start()
 
 
 
-
+    let board = getBoard()
+    board.printBoard()
     while(true)
     {
           print("Choose 1 for black or 2 for white figures")
@@ -58,33 +59,9 @@ public func start()
 
     }
 
-  var placedFigures = 19 //no hack must be 0
+  var placedFigures = 0 //no hack must be 0
 
 
-        //test hacks
-    
-    let hacks = ["A1","G1","A7" ,"G7","B4","F4"]
-    for playerInput in hacks
-    {
-      do{
-          try board.setSinglePosition(positionCordinates : playerInput , currentPlayer : currentPlayer , oponent: oponent , isMovement : true)
-
-       
-      let tempPlayer = currentPlayer
-       currentPlayer = oponent
-      oponent = tempPlayer
-         
-       } catch NineMortisError.runtimeError(let errorMessage) {
-     print(errorMessage)
-     
-      }
-      catch
-      {
-          print("Very bad") //remove
-      }
-    }
-      board.printBoard()
-    //end test hacks
     
 
  

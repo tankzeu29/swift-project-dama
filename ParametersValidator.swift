@@ -74,17 +74,17 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
       let yOffset = offset.second
 
    
-      let isAdjacent = vlaidateAdjHelper(endPosition : endPosition ,startX :startX + xOffset , startY: startY ) ||
-     vlaidateAdjHelper(endPosition : endPosition , startX :startX - xOffset ,startY: startY ) ||
-    vlaidateAdjHelper(endPosition : endPosition ,startX :startX , startY: startY + yOffset ) ||
-     vlaidateAdjHelper(endPosition : endPosition ,startX :startX , startY: startY - yOffset) 
+      let isAdjacent = vlaidateAdjHelper(endPosition : endPosition ,startX :startX + xOffset , startY: startY ,board : board ) ||
+     vlaidateAdjHelper(endPosition : endPosition , startX :startX - xOffset ,startY: startY , board : board ) ||
+    vlaidateAdjHelper(endPosition : endPosition ,startX :startX , startY: startY + yOffset ,board : board) ||
+     vlaidateAdjHelper(endPosition : endPosition ,startX :startX , startY: startY - yOffset, board : board) 
 
       return isAdjacent
 
 
   }
 
-  public static func vlaidateAdjHelper(endPosition : BoardPosition , startX :Int , startY : Int) -> Bool
+  public static func vlaidateAdjHelper(endPosition : BoardPosition , startX :Int , startY : Int , board : Board) -> Bool
   {
       let positionExist = board.isPointExisting(xCordinate :startX ,yCordinate: startY )
       if(positionExist)
@@ -130,7 +130,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
     try validatePositionLocation(xCordinate : startX , yCordinate : startY)
 
-    try isPositionExisting(xCordinate: startX , yCordinate : startY , matX : board.getLength() , matY : board.getWidth() )
+    try isPositionExisting(xCordinate: startX , yCordinate : startY , matX : board.getLength() , matY : board.getWidth() , board : board )
     ///check if it is in range 
 
   }
@@ -154,7 +154,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
 
 
-  public static func isPositionExisting( xCordinate : Character , yCordinate : Character , matX : Int, matY : Int) throws
+  public static func isPositionExisting( xCordinate : Character , yCordinate : Character , matX : Int, matY : Int , board :Board) throws
   {
 
   

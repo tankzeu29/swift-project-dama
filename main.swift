@@ -5,10 +5,9 @@
 
 
 
-var board = Board()
-board.printBoard()
 
-var manager = GameManager(board : board)
+
+var manager = GameManager()
 manager.startGame()
 //manager.setPosition(positionCordinates :"A1A2",colour : PieceColour.WHITE)
 //board.printBoard()

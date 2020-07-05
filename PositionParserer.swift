@@ -4,7 +4,7 @@ public class PositionParser
 {
 
 
-private static let  lettersToInt: [Character : Int] = [
+public static let  lettersToInt: [Character : Int] = [
   "A" : 0,
   "B" : 4,
   "C" : 8,
@@ -114,7 +114,7 @@ public static func getPositionFromString(position : String, board : Board) throw
 
 
 
- private    static func getPieceColourFromString ( colour : String) -> PieceColour
+ public    static func getPieceColourFromString ( colour : String) -> PieceColour
   {
     if( colour == PlayerColours.WHITE_FIGURE)
     {
@@ -205,7 +205,7 @@ public static func getOffset(position : BoardPosition , board : Board) -> (first
 
 
 
-private static func findX(position : BoardPosition ,board : Board) -> Int
+public static func findX(position : BoardPosition ,board : Board) -> Int
 
 {
    //print("In function X")
@@ -227,7 +227,7 @@ private static func findX(position : BoardPosition ,board : Board) -> Int
 }
 
 
-private static func findY(position : BoardPosition ,board : Board) -> Int
+public static func findY(position : BoardPosition ,board : Board) -> Int
 
 {
   //print("In function Y")
@@ -290,8 +290,8 @@ public static func findMills(position : BoardPosition , board : Board) -> Int
 
      findNextYmills(position: position , offset : -destinationToCenterY , board : board ) +
      findNextYmills(position: position , offset : destinationToCenterY , board : board ) +
-   findAdjacentMills(position : position , offset : destinationToCenterX , incrementX : true)
-  +  findAdjacentMills(position : position , offset : destinationToCenterY , incrementX : false)
+   findAdjacentMills(position : position , offset : destinationToCenterX , incrementX : true , board : board)
+  +  findAdjacentMills(position : position , offset : destinationToCenterY , incrementX : false , board : board)
   return totalMills 
 }
 
@@ -299,7 +299,7 @@ public static func findMills(position : BoardPosition , board : Board) -> Int
 
 
 
-public static func findAdjacentMills(position : BoardPosition , offset : Int , incrementX : Bool) -> Int
+public static func findAdjacentMills(position : BoardPosition , offset : Int , incrementX : Bool , board : Board) -> Int
 {
   var result = 0
   var startSum = 0
@@ -331,7 +331,7 @@ public static func findAdjacentMills(position : BoardPosition , offset : Int , i
       secondPoint = try getPosition(xCordinate : startX , yCordinate : secondPointValue , board :board )
        thirdPoint = try getPosition(xCordinate : startX , yCordinate : thirdPointValue , board :board ) 
   }
-  result = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
+  result = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint , board : board)
   
    } catch NineMortisError.runtimeError(let errorMessage) {
                   print(errorMessage)
@@ -348,7 +348,7 @@ public static func findAdjacentMills(position : BoardPosition , offset : Int , i
 }
 
 
-private static func findNextXmills(position : BoardPosition , offset : Int , board : Board) -> Int
+public static func findNextXmills(position : BoardPosition , offset : Int , board : Board) -> Int
 {
   let startX = position.getX()
   let startY = position.getY()
@@ -356,7 +356,7 @@ private static func findNextXmills(position : BoardPosition , offset : Int , boa
  do{
    let secondPoint = try getPosition(xCordinate : startX + offset , yCordinate : startY , board : board)
    let thirdPoint = try getPosition(xCordinate : startX + 2 * offset , yCordinate : startY, board : board)
-   answer = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
+   answer = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint , board : board)
 
   }  
    catch
@@ -368,7 +368,7 @@ private static func findNextXmills(position : BoardPosition , offset : Int , boa
 
 }
 
-private static func findNextYmills(position : BoardPosition , offset : Int , board : Board) -> Int
+public static func findNextYmills(position : BoardPosition , offset : Int , board : Board) -> Int
 {
   let startX = position.getX()
   let startY = position.getY()
@@ -376,7 +376,7 @@ private static func findNextYmills(position : BoardPosition , offset : Int , boa
  do{
    let secondPoint = try getPosition(xCordinate : startX  , yCordinate : startY + offset , board : board)
    let thirdPoint = try getPosition(xCordinate : startX  , yCordinate : startY + 2 * offset, board : board)
-   answer = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
+   answer = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint , board : board)
   }    catch
    {
      return answer
@@ -386,7 +386,7 @@ private static func findNextYmills(position : BoardPosition , offset : Int , boa
 
 }
 
-private static func findSameColour(firstPoint : BoardPosition , secondPoint : BoardPosition , thirdPoint : BoardPosition) -> Int
+public static func findSameColour(firstPoint : BoardPosition , secondPoint : BoardPosition , thirdPoint : BoardPosition , board : Board) -> Int
 {
   // print("Searching TRIPLETS \(firstPoint.toString()) , \(secondPoint.toString()) , \(thirdPoint.toString()) ")
   if(firstPoint == secondPoint || secondPoint == thirdPoint || thirdPoint == firstPoint)
@@ -435,7 +435,7 @@ public static func findXMills(position : BoardPosition , offset : Int , board : 
 do{
    let secondPoint = try getPosition(xCordinate : secondPointX , yCordinate : allY , board : board)
    let thirdPoint = try getPosition(xCordinate : thirdPointX  , yCordinate : allY, board : board)
-   totalMills = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
+   totalMills = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint , board : board)
   }    catch
    {
      return totalMills
@@ -448,37 +448,9 @@ do{
 
 
 
-
-
-
-
-  /*
-   var allY = position.getY()
-       print("Alt \(secondPointX) ,\(allY)")
-       print("Alt \(thirdPointX) ,\(allY)")
-   var secondPointExists = board.isPointExisting(xCordinate : secondPointX, yCordinate : allY )
-    var thirdPointExists = board.isPointExisting(xCordinate : thirdPointX, yCordinate : allY )
-    var cordinatesAreDifferent = (position.getX() != secondPointX && secondPointX != thirdPointX)
-
-    if(cordinatesAreDifferent && secondPointExists && thirdPointExists )
-    {
-      var firstColour = board.getPositionColour(x : position.getX() , y: allY)
-      var secondColour = board.getPositionColour(x : secondPointX , y: allY)
-      var thirdColour = board.getPositionColour(x : thirdPointX , y: allY)
-
-      if(firstColour == secondColour && secondColour == thirdColour)
-      {        print("RES \(position.getX()) ,\(allY)")
-      print(firstColour)
-     print(secondColour)
-     print(thirdColour)
-        return 1
-      }
-    }
-  return 0
-  */
 }
 
-private static func findYMills(position : BoardPosition , offset : Int , board : Board) -> Int
+public static func findYMills(position : BoardPosition , offset : Int , board : Board) -> Int
 {
    print("for \(position.getX()) ,\(position.getY())")
     print("possible moves 2")
@@ -491,7 +463,7 @@ private static func findYMills(position : BoardPosition , offset : Int , board :
 do{
    let secondPoint = try getPosition(xCordinate : allX  , yCordinate : secondPointY , board : board)
    let thirdPoint = try getPosition(xCordinate : allX  , yCordinate : thirdPointY, board : board)
-   totalMills = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
+   totalMills = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint , board : board)
   }
    catch
    {
@@ -499,28 +471,7 @@ do{
    }
 
    return totalMills
-  /*
-   var secondPointExists = board.isPointExisting(xCordinate : allX, yCordinate : secondPointY )
-    var thirdPointExists = board.isPointExisting(xCordinate : allX, yCordinate : thirdPointY )
-    var cordinatesAreDifferent = (position.getY() != secondPointY && secondPointY != thirdPointY)
-    if(cordinatesAreDifferent && secondPointExists && thirdPointExists )
-    {
-      var firstColour = board.getPositionColour(x : allX , y: position.getY())
-      var secondColour = board.getPositionColour(x :allX , y: secondPointY)
-      var thirdColour = board.getPositionColour(x : allX , y: thirdPointY)
-      if(firstColour == secondColour && secondColour == thirdColour)
-      {
-            print("RES \(allX) ,\(secondPointY)")
-           print("RES \(allX) ,\(thirdPointY)")
-            print(firstColour)
-     print(secondColour)
-     print(thirdColour)
-        return 1
-      }
-    }
-  return 0
 
-  */
 }
 
 

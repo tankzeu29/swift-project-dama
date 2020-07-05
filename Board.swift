@@ -142,7 +142,7 @@ private func initializeMatrixVerical()
    let middleX = (matrixWidth - 1) / 2
    let middleY = (matrixLength - 1) / 2
    let tileOffset = (matrixWidth - 1) / 6 
-  for i in 0...matrixWidth - 1
+  for i in 1...matrixWidth - 2
   {
     if( i < (middleX - tileOffset) || i > (middleX + tileOffset) )
     {
@@ -211,8 +211,8 @@ public func printBoard()
 
 public func isOccupied( xPosition : Int,  yPosition : Int) -> Bool 
 {
-    //print("Is occupied \(xPosition) \(yPosition) \(arr[xPosition][yPosition])")
-     return arr[xPosition][yPosition] == BoardBoundElements.EMPTY_POSITION 
+    print("Is occupied \(xPosition) \(yPosition) \(arr[xPosition][yPosition])")
+     return arr[xPosition][yPosition] != BoardBoundElements.EMPTY_POSITION 
 
 }
 
@@ -227,14 +227,14 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
   {
 
     
-      try ParametersValidator.validateSinglePosition(position : positionCordinates , board : board)
+      try ParametersValidator.validateSinglePosition(position : positionCordinates , board : self)
 
    
        let currentPieceCell = try getPositionWithColour(position : positionCordinates , colour : currentPlayer.getColour())
 
 
     
-      if(isMovement && board.isOccupied(xPosition :currentPieceCell.getX(),yPosition : currentPieceCell.getY())  )
+      if(isOccupied(xPosition :currentPieceCell.getX(),yPosition : currentPieceCell.getY())  )
       
 
       {
@@ -247,11 +247,11 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
         
   
                    let boardColour = PlayerColours.getColour( colour : currentPieceCell.getColour())
-        board.setTileColor(xPosition : currentPieceCell.getX() , yPosition : currentPieceCell.getY() ,colour : boardColour)
+        setTileColor(xPosition : currentPieceCell.getX() , yPosition : currentPieceCell.getY() ,colour : boardColour)
        
         currentPlayer.addPiece(position : currentPieceCell)
           
-       let totalMills = PositionParser.findMills(position : currentPieceCell , board: board)
+       let totalMills = PositionParser.findMills(position : currentPieceCell , board : self )
           print("Found mills : \(totalMills) ")
       if(totalMills > 0)
       {
@@ -290,7 +290,7 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
             {
                throw NineMortisError.runtimeError("You cannot remove your piece , enter again")
             }
-            let oponentMillsWithPiece = PositionParser.findMills(position : position , board : board)
+            let oponentMillsWithPiece = PositionParser.findMills(position : position , board : self)
             if(oponentMillsWithPiece != 0)
             {
                throw NineMortisError.runtimeError("This piecei is part of oponent mill , you cannot remove it , try again.")
@@ -355,7 +355,7 @@ public func isPositionEmpty(position : BoardPosition) -> Bool
 
 public func getPositionWithColour(position : String ,  colour : PieceColour) throws -> BoardPosition
 {
-   try ParametersValidator.validateSinglePosition(position : position , board : board)
+   try ParametersValidator.validateSinglePosition(position : position , board : self)
 
   
     let yCordinate = PositionParser.convertLetterToPosition(position : position[0]) 

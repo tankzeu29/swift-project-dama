@@ -6,9 +6,9 @@ public class GameManager{
 
   var board : Board
 
- public  init( board : Board)
+ public  init()
   {
-    self.board = board
+    self.board = Board()
 
   }
 
