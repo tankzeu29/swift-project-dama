@@ -11,7 +11,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
 
 
-   static func validateMovement(position : String , board : Board , currentPlayer : Player, oponent : Player , canFly : Bool ) throws
+   public static func validateMovement(position : String , board : Board , currentPlayer : Player, oponent : Player , canFly : Bool ) throws
   {
 
 
@@ -63,7 +63,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
   
 
 
-  static func arePositionsAdjacent(startPosition : BoardPosition ,endPosition: BoardPosition, board : Board) -> Bool 
+  public static func arePositionsAdjacent(startPosition : BoardPosition ,endPosition: BoardPosition, board : Board) -> Bool 
   {
 
 
@@ -84,7 +84,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
   }
 
-  static func vlaidateAdjHelper(endPosition : BoardPosition , startX :Int , startY : Int) -> Bool
+  public static func vlaidateAdjHelper(endPosition : BoardPosition , startX :Int , startY : Int) -> Bool
   {
       let positionExist = board.isPointExisting(xCordinate :startX ,yCordinate: startY )
       if(positionExist)
@@ -97,7 +97,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
 
 
-  static func validatePositionLocation(xCordinate : Character , yCordinate : Character) throws
+ public  static func validatePositionLocation(xCordinate : Character , yCordinate : Character) throws
   {
 
     guard xCordinate.isLetter else {
@@ -114,7 +114,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
   }
 
 
- static func validateSinglePosition(position : String , board : Board) throws
+ public static func validateSinglePosition(position : String , board : Board) throws
   {
 
 
@@ -136,7 +136,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
   }
 
 
-   static func validateSinglePosition(position : BoardPosition, board : Board) throws
+   public static func validateSinglePosition(position : BoardPosition, board : Board) throws
   {
 
 
@@ -154,7 +154,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
 
 
-  static func isPositionExisting( xCordinate : Character , yCordinate : Character , matX : Int, matY : Int) throws
+  public static func isPositionExisting( xCordinate : Character , yCordinate : Character , matX : Int, matY : Int) throws
   {
 
   
@@ -165,7 +165,15 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
             throw NineMortisError.runtimeError("Illegal number for cordinates - \(yCordinate) ,number not in Range [1;7]")
         }
         let y = PositionParser.convertLetterToPosition(position : xCordinate)
-        var x = Int(String(yCordinate))!
+        var x = 0
+        if let inputY = Int(String(yCordinate))
+        {
+           x = inputY
+        }
+        else
+        {
+            throw NineMortisError.runtimeError("Passed Parameter \(yCordinate) is not a number ")
+        }
 
          x = PositionParser.convertInputIndexToPosition(position : x)
      

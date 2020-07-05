@@ -4,19 +4,17 @@ public class BoardPosition : Equatable
 {
 
  private var xCordinate : Int
- 
- 
  private var yCordinate : Int
  private var colour : PieceColour
 
- init()
+ public init()
  {
    xCordinate = 0
    yCordinate = 0
    colour = PieceColour.WHITE
  }
 
-  init (xCordinate : Int, yCordinate : Int )
+ public  init (xCordinate : Int, yCordinate : Int )
  {
    self.xCordinate = xCordinate
    self.yCordinate = yCordinate
@@ -24,38 +22,38 @@ public class BoardPosition : Equatable
  }
 
 
- convenience init (xCordinate : Int, yCordinate : Int , colour : PieceColour)
+ public convenience init (xCordinate : Int, yCordinate : Int , colour : PieceColour)
  {
     self.init(xCordinate : xCordinate , yCordinate : yCordinate)
    self.colour = colour
  }
 
 
- func getX() -> Int
+public  func getX() -> Int
  {
    return xCordinate
  }
 
- func getY() -> Int
+ public func getY() -> Int
  {
    return yCordinate
  }
  
- func getColour() -> PieceColour
+ public func getColour() -> PieceColour
  {
    return colour
  }
 
- func setColour(colour : PieceColour)
+ public func setColour(colour : PieceColour)
  {
    self.colour = colour
  }
- func info()
+public  func info()
  {
    print("\(xCordinate) \(yCordinate)")
  }
 
- func toString() -> String 
+ public func toString() -> String 
  {
    return "[\(xCordinate),\(yCordinate),\(colour)] "
  }

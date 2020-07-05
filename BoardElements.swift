@@ -3,13 +3,13 @@
 public class BoardBoundElements
 {
 
- static let HORIZONTAL_LINE = "-"
-  static let VERTICAL_LINE = "|"
-  static let EMPTY_POSITION = "."
-  static let ILLEGAL_POSITION = "x"
+ public static let HORIZONTAL_LINE = "-"
+  public static let VERTICAL_LINE = "|"
+  public static let EMPTY_POSITION = "."
+  public static let ILLEGAL_POSITION = " "
 
 
-  static func getEmptyPositionSymbol() -> String
+  public static func getEmptyPositionSymbol() -> String
   {
     return EMPTY_POSITION
   }

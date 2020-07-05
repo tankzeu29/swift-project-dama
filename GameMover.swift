@@ -12,7 +12,7 @@ public class GameMover : GamePhase
 }
 
 
-func start()
+public func start()
 {
 
   print("GAME_MOVER_STARTED")
@@ -35,7 +35,8 @@ func start()
         }
 
 
-    print("Enter move \(currentPlayer.getColour())")
+    print(IngameMessages.ENTER_INPUT_MOVE)
+    print("\(currentPlayer.getColour()) turn")
     if let position = readLine() {
 
       do {
@@ -55,13 +56,13 @@ func start()
            }
            catch
            {
-             print("Very bad lol")
+             print(GameExceptionMessages.UNEXEPECTED_EXCEPTION)
            }
        board.printBoard()
     }
     else
     {
-      print("Enter legal move")
+      print(IngameMessages.ENTER_INPUT_AGAIN)
     }
     
 
@@ -74,7 +75,7 @@ func start()
 
 
 
- func movePiece(position : String , currentPlayer : Player , oponent : Player , board : Board) throws
+ public func movePiece(position : String , currentPlayer : Player , oponent : Player , board : Board) throws
 {
         let canCurrentPlayerFily = canPlayerFly(player : currentPlayer)
         if(canCurrentPlayerFily)
@@ -85,6 +86,8 @@ func start()
         {
            print("Player with colour \(currentPlayer.getColour()) CAN NOT FLY")
         }
+
+
          try ParametersValidator.validateMovement(position : position , board : board , currentPlayer : currentPlayer , oponent : oponent , canFly : canCurrentPlayerFily)
 
 
@@ -98,13 +101,13 @@ func start()
 
 }
 
-func canPlayerFly(player : Player) -> Bool
+private func canPlayerFly(player : Player) -> Bool
 {
   return player.getTotalPieces() == 3
 }
 
 
- func shouldGameEnd(firstPlayer : Player , secondPlayer : Player , board : Board) -> EndGameState
+ private func shouldGameEnd(firstPlayer : Player , secondPlayer : Player , board : Board) -> EndGameState
 {
   let firstEnd = canMovePieces(currentPlayer : firstPlayer , board : board) 
   let secondEnd = canMovePieces(currentPlayer : secondPlayer , board : board)
@@ -129,7 +132,7 @@ func canPlayerFly(player : Player) -> Bool
   }
 }
 
- func canMovePieces(currentPlayer : Player , board : Board) -> Bool
+ private func canMovePieces(currentPlayer : Player , board : Board) -> Bool
 {
 
   if(currentPlayer.getTotalPieces() <= 2)
@@ -160,15 +163,12 @@ func canPlayerFly(player : Player) -> Bool
         break;
     }
   }
-  if(canCurrentPlayerMove == false)
-  {
-    print("ENDGAME cuz player with colour cant move -  \(currentPlayer.getColour())")
-  }
+
   return canCurrentPlayerMove
 }
 
 
- func canPieceMove(position : BoardPosition ,xOffset : Int ,yOffset : Int ,board : Board) -> Bool
+ private func canPieceMove(position : BoardPosition ,xOffset : Int ,yOffset : Int ,board : Board) -> Bool
 {
   let startX = position.getX()
   let startY = position.getY()
@@ -186,32 +186,29 @@ func canPlayerFly(player : Player) -> Bool
   board.isPositionEmpty(position : bottomPosition) || 
    board.isPositionEmpty(position : leftPosition) || 
     board.isPositionEmpty(position : rightPosition)
-    if(canMove == false)
-    {
-      print( )
-    }
+
   return canMove
   
 }
 
 
- func printWinner(winner : EndGameState)
+ public func printWinner(winner : EndGameState)
 {
   if(winner == EndGameState.DRAW)
   {
-    print("no one won")
+    print(IngameMessages.DRAW)
   }
   else if (winner == EndGameState.PLAYER1_WINNER)
   {
-    print("Player 1 won")
+    print(IngameMessages.PLAYER1_WON)
   }
   else if (winner == EndGameState.PLAYER2_WINNER)
   {
-    print("Player 2 won")
+    print(IngameMessages.PLAYER2_WON)
   }
   else
   {
-    print("I cant determine who won LMAO")
+    print(IngameMessages.UNDETERMINED_WINNER)
   }
 
 }

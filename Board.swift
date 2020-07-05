@@ -36,7 +36,7 @@ initializeMatrixVerical()
 
 
 
-func initializeMatrixHorizontal()
+private func initializeMatrixHorizontal()
 {
    var start = 0
   var end = matrixLength - 1
@@ -65,7 +65,7 @@ func initializeMatrixHorizontal()
      }
      else if(step == 2)
      {
-    
+           
        currentRow = currentRow + 4
      }
      else
@@ -76,10 +76,24 @@ func initializeMatrixHorizontal()
      }
 
    }
+
+   let middleX = (matrixWidth - 1) / 2
+   let middleY = (matrixLength - 1) / 2
+   let tileOffset = (matrixLength - 1) / 6 
+   for i in 0...matrixLength - 1
+   {
+      if( i < (middleY - tileOffset) || i > (middleY + tileOffset))
+      {
+               arr[middleX][i] =  BoardBoundElements.HORIZONTAL_LINE
+      }
+
+   }
+
+
 }
 
 
-func initializeMatrixVerical()
+private func initializeMatrixVerical()
 {
 
 
@@ -125,10 +139,23 @@ func initializeMatrixVerical()
 
 }
 
+   let middleX = (matrixWidth - 1) / 2
+   let middleY = (matrixLength - 1) / 2
+   let tileOffset = (matrixWidth - 1) / 6 
+  for i in 0...matrixWidth - 1
+  {
+    if( i < (middleX - tileOffset) || i > (middleX + tileOffset) )
+    {
+          arr[i][middleY]  = BoardBoundElements.VERTICAL_LINE
+    }
+  
+  }
+
+
 }
 
 
-func setHeader()
+private func setHeader()
 {
 
   
@@ -149,7 +176,7 @@ func setHeader()
 }
 
 
-func printBoard()
+public func printBoard()
 {
   
    print(header)
@@ -182,22 +209,16 @@ func printBoard()
 
 }
 
-func isOccupied( xPosition : Int,  yPosition : Int) -> Bool 
+public func isOccupied( xPosition : Int,  yPosition : Int) -> Bool 
 {
     //print("Is occupied \(xPosition) \(yPosition) \(arr[xPosition][yPosition])")
-     if( arr[xPosition][yPosition] == BoardBoundElements.EMPTY_POSITION )
-     {
-       return false
-     }
-     else
-     {
-       return true
-     }
+     return arr[xPosition][yPosition] == BoardBoundElements.EMPTY_POSITION 
+
 }
 
-func setTileColor(xPosition : Int , yPosition : Int , colour : String)
+private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
 {
-  print("\(xPosition) \(yPosition) \(colour)")
+ // print("\(xPosition) \(yPosition) \(colour)")
   arr[xPosition][yPosition] = colour
 }
 
@@ -254,7 +275,7 @@ func setTileColor(xPosition : Int , yPosition : Int , colour : String)
   
 
 
-  func removeDamaPoints(totalMills : Int  , oponent : Player)  
+  private func removeDamaPoints(totalMills : Int  , oponent : Player)  
   {
       var totalRemoved = 0
           print("Enter cordinates to remove Enemy figure")
@@ -284,7 +305,7 @@ func setTileColor(xPosition : Int , yPosition : Int , colour : String)
            }
            catch
            {
-             print("Very bad lol")
+             print(GameExceptionMessages.UNEXEPECTED_EXCEPTION)
            }
 
       
@@ -301,19 +322,19 @@ func setTileColor(xPosition : Int , yPosition : Int , colour : String)
 
 
 
- func getPositionColour(x : Int , y : Int ) -> String
+ public func getPositionColour(x : Int , y : Int ) -> String
 {
     return arr[x][y]
 }
 
-func getPositionColour(position : BoardPosition) -> String
+public func getPositionColour(position : BoardPosition) -> String
 {
   let x = position.getX()
   let y = position.getY()
   return getPositionColour(x : x , y : y)
 }
 
-func isPositionEmpty(position : BoardPosition) -> Bool
+public func isPositionEmpty(position : BoardPosition) -> Bool
 {
   if( !isPointExisting(point : position))
   {
@@ -332,7 +353,7 @@ func isPositionEmpty(position : BoardPosition) -> Bool
 
 
 
-func getPositionWithColour(position : String ,  colour : PieceColour) throws -> BoardPosition
+public func getPositionWithColour(position : String ,  colour : PieceColour) throws -> BoardPosition
 {
    try ParametersValidator.validateSinglePosition(position : position , board : board)
 
@@ -361,7 +382,7 @@ func getPositionWithColour(position : String ,  colour : PieceColour) throws -> 
 
 
 
-func isPointExisting(xCordinate : Int , yCordinate : Int) -> Bool
+public func isPointExisting(xCordinate : Int , yCordinate : Int) -> Bool
 {
 
   //print("Does \(xCordinate) \(yCordinate) exist?")
@@ -382,7 +403,7 @@ func isPointExisting(xCordinate : Int , yCordinate : Int) -> Bool
 
 }
 
-func isPointExisting(point : BoardPosition) -> Bool
+public func isPointExisting(point : BoardPosition) -> Bool
 {
   let xCordinate = point.getX()
   let yCordinate = point.getY()
@@ -391,7 +412,7 @@ func isPointExisting(point : BoardPosition) -> Bool
 
 
 
-func removeAtPosition(point : BoardPosition)
+public func removeAtPosition(point : BoardPosition)
 {
       arr[point.getX()][point.getY()] = BoardBoundElements.EMPTY_POSITION
 }

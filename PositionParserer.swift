@@ -1,10 +1,10 @@
 
 
-class PositionParser
+public class PositionParser
 {
 
 
-static let  lettersToInt: [Character : Int] = [
+private static let  lettersToInt: [Character : Int] = [
   "A" : 0,
   "B" : 4,
   "C" : 8,
@@ -15,12 +15,12 @@ static let  lettersToInt: [Character : Int] = [
 ]
 
 
-static func convertLetterToPosition(position : Character) -> Int
+public static func convertLetterToPosition(position : Character) -> Int
 {
   return lettersToInt[position]!
 }
 
-static func convertInputIndexToPosition(position : Int) -> Int
+public static func convertInputIndexToPosition(position : Int) -> Int
 {
   if( position == 1)
   {
@@ -40,17 +40,6 @@ static func convertInputIndexToPosition(position : Int) -> Int
   }
 }
 
-static func getHalfOfMatrixSide(matrixSide : Int) -> Int
-{
-  if ( matrixSide % 2 == 0)
-  {
-    return matrixSide / 2
-  }
-  else
-  {
-    return matrixSide / 2 + 1
-  }
-}
 
 
 
@@ -60,11 +49,12 @@ static func getHalfOfMatrixSide(matrixSide : Int) -> Int
 
 
 
-static func getPositionWithColour(position : String , board : Board) throws -> BoardPosition
+public static func getPositionWithColour(position : String , board : Board) throws -> BoardPosition
 {
    try ParametersValidator.validateSinglePosition(position : position , board : board)
 
     let yCordinate = convertLetterToPosition(position : position[0]) 
+    
     var xCordinate = Int(String(position[1]))! 
 
 
@@ -79,7 +69,7 @@ static func getPositionWithColour(position : String , board : Board) throws -> B
 
 }
 
-static func getPosition(xCordinate : Int , yCordinate : Int ,board : Board) throws -> BoardPosition
+public static func getPosition(xCordinate : Int , yCordinate : Int ,board : Board) throws -> BoardPosition
 {
    let position = BoardPosition(xCordinate : xCordinate, yCordinate : yCordinate)
    try ParametersValidator.validateSinglePosition(position : position , board : board)
@@ -96,12 +86,20 @@ static func getPosition(xCordinate : Int , yCordinate : Int ,board : Board) thro
 
 }
 
-static func getPositionFromString(position : String, board : Board) throws -> BoardPosition
+public static func getPositionFromString(position : String, board : Board) throws -> BoardPosition
 {
    try ParametersValidator.validateSinglePosition(position : position , board : board)
 
-    let yCordinate = convertLetterToPosition(position : position[0]) 
-    var xCordinate = Int(String(position[1]))! 
+    let yCordinate = convertLetterToPosition(position : position[0])
+    var xCordinate = 0 
+    if let  inputX = Int(String(position[1]))
+    {
+      xCordinate = inputX
+    }
+    else
+    {
+       throw NineMortisError.runtimeError("Passed parameter \(position[1]) is not a number ")
+    }
 
 
       print("Gonna fetch \(yCordinate) \(xCordinate)")
@@ -116,7 +114,7 @@ static func getPositionFromString(position : String, board : Board) throws -> Bo
 
 
 
-    static func getPieceColourFromString ( colour : String) -> PieceColour
+ private    static func getPieceColourFromString ( colour : String) -> PieceColour
   {
     if( colour == PlayerColours.WHITE_FIGURE)
     {
@@ -145,7 +143,7 @@ static func getPositionFromString(position : String, board : Board) throws -> Bo
 
 
 
-static func getOffset(position : BoardPosition , board : Board) -> (first :Int , second :Int)
+public static func getOffset(position : BoardPosition , board : Board) -> (first :Int , second :Int)
 {
 
 
@@ -155,8 +153,8 @@ static func getOffset(position : BoardPosition , board : Board) -> (first :Int ,
 
   var yAnswer = 0
   var xAnswer = 0
-  var halfLength = (board.getLength() - 1) 
-   var halfHeight = (board.getWidth() - 1)
+  let halfLength = (board.getLength() - 1) 
+   let halfHeight = (board.getWidth() - 1)
  
   if(pointY == 0 || pointY == halfLength)
   {
@@ -207,14 +205,12 @@ static func getOffset(position : BoardPosition , board : Board) -> (first :Int ,
 
 
 
-
-static func findX(position : BoardPosition ,board : Board) -> Int
+private static func findX(position : BoardPosition ,board : Board) -> Int
 
 {
    //print("In function X")
   let matrixLength = board.getLength()
   let matrixHeight = board.getWidth()
-  let x = position.getX()
   let y = position.getY()
   //print(" x \(x) y \(y)")
 //  print(" matrixLength \(matrixLength) matrixHeight \(matrixHeight)")
@@ -231,14 +227,14 @@ static func findX(position : BoardPosition ,board : Board) -> Int
 }
 
 
-static func findY(position : BoardPosition ,board : Board) -> Int
+private static func findY(position : BoardPosition ,board : Board) -> Int
 
 {
   //print("In function Y")
 let matrixLength = board.getLength()
   let matrixHeight = board.getWidth()
   let x = position.getX()
-  let y = position.getY()
+
 //  print(" x \(x) y \(y)")
 //  print(" matrixLength \(matrixLength) matrixHeight \(matrixHeight)")
 let halfHeight = (matrixHeight  - 1 ) / 2
@@ -271,7 +267,7 @@ let halfHeight = (matrixHeight  - 1 ) / 2
 
 
 
-static func findMills(position : BoardPosition , board : Board) -> Int
+public static func findMills(position : BoardPosition , board : Board) -> Int
 {
 
 
@@ -303,7 +299,7 @@ static func findMills(position : BoardPosition , board : Board) -> Int
 
 
 
-static func findAdjacentMills(position : BoardPosition , offset : Int , incrementX : Bool) -> Int
+public static func findAdjacentMills(position : BoardPosition , offset : Int , incrementX : Bool) -> Int
 {
   var result = 0
   var startSum = 0
@@ -352,7 +348,7 @@ static func findAdjacentMills(position : BoardPosition , offset : Int , incremen
 }
 
 
-static func findNextXmills(position : BoardPosition , offset : Int , board : Board) -> Int
+private static func findNextXmills(position : BoardPosition , offset : Int , board : Board) -> Int
 {
   let startX = position.getX()
   let startY = position.getY()
@@ -362,19 +358,17 @@ static func findNextXmills(position : BoardPosition , offset : Int , board : Boa
    let thirdPoint = try getPosition(xCordinate : startX + 2 * offset , yCordinate : startY, board : board)
    answer = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
 
-  } catch NineMortisError.runtimeError(let errorMessage) {
-             
-   }
+  }  
    catch
    {
-
+     return answer
    }
 
   return answer
 
 }
 
-static func findNextYmills(position : BoardPosition , offset : Int , board : Board) -> Int
+private static func findNextYmills(position : BoardPosition , offset : Int , board : Board) -> Int
 {
   let startX = position.getX()
   let startY = position.getY()
@@ -383,19 +377,16 @@ static func findNextYmills(position : BoardPosition , offset : Int , board : Boa
    let secondPoint = try getPosition(xCordinate : startX  , yCordinate : startY + offset , board : board)
    let thirdPoint = try getPosition(xCordinate : startX  , yCordinate : startY + 2 * offset, board : board)
    answer = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
-  } catch NineMortisError.runtimeError(let errorMessage) {
-             
-   }
-   catch
+  }    catch
    {
-
+     return answer
    }
 
   return answer
 
 }
 
-static func findSameColour(firstPoint : BoardPosition , secondPoint : BoardPosition , thirdPoint : BoardPosition) -> Int
+private static func findSameColour(firstPoint : BoardPosition , secondPoint : BoardPosition , thirdPoint : BoardPosition) -> Int
 {
   // print("Searching TRIPLETS \(firstPoint.toString()) , \(secondPoint.toString()) , \(thirdPoint.toString()) ")
   if(firstPoint == secondPoint || secondPoint == thirdPoint || thirdPoint == firstPoint)
@@ -432,7 +423,7 @@ static func findSameColour(firstPoint : BoardPosition , secondPoint : BoardPosit
 
 
 
-static func findXMills(position : BoardPosition , offset : Int , board : Board) -> Int
+public static func findXMills(position : BoardPosition , offset : Int , board : Board) -> Int
 {
     print("for \(position.getX()) ,\(position.getY())")
     print("possible moves 1")
@@ -445,13 +436,12 @@ do{
    let secondPoint = try getPosition(xCordinate : secondPointX , yCordinate : allY , board : board)
    let thirdPoint = try getPosition(xCordinate : thirdPointX  , yCordinate : allY, board : board)
    totalMills = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
-  } catch NineMortisError.runtimeError(let errorMessage) {
-             
-   }
-   catch
+  }    catch
    {
-
+     return totalMills
    }
+
+
 
    return totalMills
 
@@ -488,7 +478,7 @@ do{
   */
 }
 
-static func findYMills(position : BoardPosition , offset : Int , board : Board) -> Int
+private static func findYMills(position : BoardPosition , offset : Int , board : Board) -> Int
 {
    print("for \(position.getX()) ,\(position.getY())")
     print("possible moves 2")
@@ -502,12 +492,10 @@ do{
    let secondPoint = try getPosition(xCordinate : allX  , yCordinate : secondPointY , board : board)
    let thirdPoint = try getPosition(xCordinate : allX  , yCordinate : thirdPointY, board : board)
    totalMills = findSameColour(firstPoint : position , secondPoint : secondPoint , thirdPoint : thirdPoint)
-  } catch NineMortisError.runtimeError(let errorMessage) {
-      
-   }
+  }
    catch
    {
-
+      totalMills = 0
    }
 
    return totalMills

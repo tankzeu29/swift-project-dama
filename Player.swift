@@ -20,16 +20,16 @@ public class Player
  
   }
 
-func  getPieces() -> [BoardPosition]
+public func  getPieces() -> [BoardPosition]
   {
     return currentPieces
   }
 
-  func  addPiece( position : BoardPosition)
+ public  func  addPiece( position : BoardPosition)
   {
     currentPieces.append(position)
   }
-    func  removePiece( position : BoardPosition)
+  public   func  removePiece( position : BoardPosition)
   {
       print("To remove \(position.toString())")
 
@@ -37,7 +37,7 @@ func  getPieces() -> [BoardPosition]
     
   }
 
-  func getTotalPieces() -> Int
+  public func getTotalPieces() -> Int
   {
     return currentPieces.count
   }
@@ -46,17 +46,17 @@ func  getPieces() -> [BoardPosition]
 
   
 
-  func getColour() -> PieceColour
+ public  func getColour() -> PieceColour
   {
     return piecesColour
   }
 
-  func setColour(colour : PieceColour)
+ public  func setColour(colour : PieceColour)
   {
     piecesColour = colour
   }
 
-  func info() -> String
+  public func info() -> String
   {
    var playerInfo = "Available pieces : \(currentPieces.count) , colour : \(piecesColour) \n "
    for piece in currentPieces

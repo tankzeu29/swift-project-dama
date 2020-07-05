@@ -13,7 +13,7 @@ public init( gameBoard : Board , player1 : Player , player2 : Player)
 }
 
 
-func start()
+public func start()
 {
 
 
@@ -52,7 +52,7 @@ func start()
       }
       catch
       {
-          print("Something bad")
+          print(GameExceptionMessages.UNEXEPECTED_EXCEPTION)
       }
 
 
@@ -61,7 +61,7 @@ func start()
   var placedFigures = 19 //no hack must be 0
 
 
-        //hacks
+        //test hacks
     
     let hacks = ["A1","G1","A7" ,"G7","B4","F4"]
     for playerInput in hacks
@@ -80,11 +80,11 @@ func start()
       }
       catch
       {
-          print("Very bad")
+          print("Very bad") //remove
       }
     }
       board.printBoard()
-    //end hacks
+    //end test hacks
     
 
  
@@ -96,7 +96,7 @@ func start()
         break;
       }
 
- print("Enter parametrs to put figure on the board:")
+ print(IngameMessages.ENTER_INPUT_PLACE)
  if let playerInput = readLine() {
       do {
       print("Enter Position to move , steps \(placedFigures) ")
@@ -130,12 +130,12 @@ func start()
       }
       catch
       {
-          print("Very bad")
+          print(GameExceptionMessages.UNEXEPECTED_EXCEPTION)
       }
          board.printBoard()
 
   } else {
-      print("Enter again details")
+      print(IngameMessages.ENTER_INPUT_AGAIN)
 }
 
 
@@ -149,7 +149,7 @@ func start()
 }
 
  
- func  parseColourNumber(number : String)  throws -> PieceColour
+private func  parseColourNumber(number : String)  throws -> PieceColour
  {
     if let playerChoice = Int(number) {
           

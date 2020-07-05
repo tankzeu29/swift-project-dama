@@ -12,11 +12,8 @@ public class GameManager{
 
   }
 
-  func getBoard() -> Board
-  {
-    return board 
-  }
-  func startGame()
+
+  public func startGame()
   {
     let player1 = Player()
     let player2 = Player()
