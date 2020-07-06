@@ -59,9 +59,32 @@ public func start()
 
     }
 
-  var placedFigures = 0 //no hack must be 0
+ var placedFigures = 0 //no hack must be 0
+
+        //hacks
+    /*
+    let hacks = ["A4","G1","B2" ,"G7","C4","D5","D1","F4","B6","D7","B4","A7","A1","A7"]
+    for playerInput in hacks
+    {
+      do{
+          try board.setSinglePosition(positionCordinates : playerInput , currentPlayer : currentPlayer , oponent: oponent , isMovement : true)
 
 
+      let tempPlayer = currentPlayer
+       currentPlayer = oponent
+      oponent = tempPlayer
+
+       } catch NineMortisError.runtimeError(let errorMessage) {
+     print(errorMessage)
+
+      }
+      catch
+      {
+          print("Very bad")
+      }
+    }
+      board.printBoard()
+  */
     
 
  
@@ -72,6 +95,7 @@ public func start()
       {
         break;
       }
+      board.printBoard()
 
  print(IngameMessages.ENTER_INPUT_PLACE)
  if let playerInput = readLine() {

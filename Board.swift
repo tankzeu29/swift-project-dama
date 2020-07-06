@@ -9,7 +9,7 @@ private var header = ""
 private let matrixLength = 25
 private let matrixWidth = 13
 private let startColumnOffset = "  "
-private let letters = [ "A" , "B", "C", "D", "E" , "F" , "G"]
+private  let letters = [ "A" , "B", "C", "D", "E" , "F" , "G"]
 
 func getLength() -> Int
 {
@@ -82,7 +82,8 @@ private func initializeMatrixHorizontal()
    let tileOffset = (matrixLength - 1) / 6 
    for i in 0...matrixLength - 1
    {
-      if( i < (middleY - tileOffset) || i > (middleY + tileOffset))
+     let isOutsideMiddleRectangle = i < (middleY - tileOffset) || i > (middleY + tileOffset)
+      if( isOutsideMiddleRectangle )
       {
                arr[middleX][i] =  BoardBoundElements.HORIZONTAL_LINE
       }
@@ -142,9 +143,11 @@ private func initializeMatrixVerical()
    let middleX = (matrixWidth - 1) / 2
    let middleY = (matrixLength - 1) / 2
    let tileOffset = (matrixWidth - 1) / 6 
-  for i in 1...matrixWidth - 2
+  for i in 0...matrixWidth - 1
   {
-    if( i < (middleX - tileOffset) || i > (middleX + tileOffset) )
+    let isOutsideMiddleRectangle = i < (middleX - tileOffset) || i > (middleX + tileOffset) 
+    let isEmptyPiecePosition = i % tileOffset == 0
+    if( isOutsideMiddleRectangle && !isEmptyPiecePosition)
     {
           arr[i][middleY]  = BoardBoundElements.VERTICAL_LINE
     }
@@ -275,7 +278,7 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
   
 
 
-  private func removeDamaPoints(totalMills : Int  , oponent : Player)  
+  private func removeDamaPoints(totalMills : Int  , oponent : Player )  
   {
       var totalRemoved = 0
           print("Enter cordinates to remove Enemy figure")
@@ -290,10 +293,17 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
             {
                throw NineMortisError.runtimeError("You cannot remove your piece , enter again")
             }
-            let oponentMillsWithPiece = PositionParser.findMills(position : position , board : self)
-            if(oponentMillsWithPiece != 0)
+            let currentPieceMills = PositionParser.findMills(position : position , board : self)
+            let oponentPiecesNotInMill = findAllNonMillPieces(player : oponent )
+            if(oponentPiecesNotInMill.count > 0 && currentPieceMills > 0)
             {
-               throw NineMortisError.runtimeError("This piecei is part of oponent mill , you cannot remove it , try again.")
+              
+              var infoFreeMessage = ""
+              for pos in oponentPiecesNotInMill{
+                        infoFreeMessage += pos.toString() + ","
+              }
+        
+               throw NineMortisError.runtimeError("This piece is part of oponent mill , you cannot remove it , try again.Possible positions to remove are \(infoFreeMessage)")
             }
 
             removeAtPosition(point : position)
@@ -318,6 +328,22 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
   }
   
 
+private func findAllNonMillPieces(player : Player ) -> [BoardPosition]
+{
+  var nonMillPositions = [BoardPosition]()
+  let playerPieces = player.getPieces()
+  for piece in playerPieces
+  {
+    let totalMills =  PositionParser.findMills(position : piece , board : self)
+    if(totalMills == 0)
+    {
+      nonMillPositions.append(piece)
+    }
+  }
+
+  return nonMillPositions
+
+}
 
 
 
@@ -358,7 +384,7 @@ public func getPositionWithColour(position : String ,  colour : PieceColour) thr
    try ParametersValidator.validateSinglePosition(position : position , board : self)
 
   
-    let yCordinate = PositionParser.convertLetterToPosition(position : position[0]) 
+    let yCordinate = try PositionParser.convertLetterToPosition(position : position[0]) 
     var xCordinate = Int(String(position[1]))! 
     xCordinate = PositionParser.convertInputIndexToPosition(position : xCordinate)
   
@@ -368,25 +394,15 @@ public func getPositionWithColour(position : String ,  colour : PieceColour) thr
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public func isPointExisting(xCordinate : Int , yCordinate : Int) -> Bool
 {
 
   //print("Does \(xCordinate) \(yCordinate) exist?")
-  let inRange =  (xCordinate >= 0) && (yCordinate >= 0) && (xCordinate <= (matrixWidth - 1)) && (yCordinate <= (matrixLength - 1))
+  let isXgreaterThanZero =  (xCordinate >= 0)
+  let isYgreaterThanZero = (yCordinate >= 0)
+  let isXinMaxRange = (xCordinate <= (matrixWidth - 1))
+  let isYinMaxRange = (yCordinate <= (matrixLength - 1))
+  let inRange = isXgreaterThanZero && isYgreaterThanZero && isXinMaxRange && isYinMaxRange
 
   if(!inRange)
   {
@@ -416,8 +432,6 @@ public func removeAtPosition(point : BoardPosition)
 {
       arr[point.getX()][point.getY()] = BoardBoundElements.EMPTY_POSITION
 }
-
-
 
   }
 

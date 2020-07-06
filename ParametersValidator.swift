@@ -5,8 +5,8 @@ public class ParametersValidator
 
 private static let allowedLetters: [Character] = ("A"..."G").characters
  private static let allowedNumbers  : [Character] = ("1"..."7").characters
-
-
+   private static let MOVEMENT_ARGUMENTS = 4 
+     private static let MOVEMENT_MIDDLE = 2
 
 
 
@@ -17,16 +17,16 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
 
     
-    guard position.count == 4 else {
-          throw NineMortisError.runtimeError("Illegal number of paramters \(position.count). It must be 4")
+    guard position.count == MOVEMENT_ARGUMENTS else {
+          throw NineMortisError.runtimeError("Illegal number of paramters \(position.count). It must be \(MOVEMENT_ARGUMENTS)")
         }
 
   
   try validateSinglePosition(position : position.substring(to:2) , board : board)
     try validateSinglePosition(position : position.substring(from:2) , board : board)
 
-    let startPosition = try PositionParser.getPositionWithColour(position : position.substring(to:2) , board : board)
-    let endPosition =  try PositionParser.getPositionWithColour(position : position.substring(from:2) , board : board)
+    let startPosition = try PositionParser.getPositionFromString(position : position.substring(to:MOVEMENT_MIDDLE) , board : board)
+    let endPosition =  try PositionParser.getPositionFromString(position : position.substring(from:MOVEMENT_MIDDLE) , board : board)
 
 
        guard startPosition.getColour() == currentPlayer.getColour() else {
@@ -43,13 +43,13 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
         let isFlyingMoveAdj = canFly && arePositionsAdj
         let isNormalMoveFlyingMove = !canFly && !arePositionsAdj
 
-        guard isFlyingMoveAdj else
+        if ( isFlyingMoveAdj )
         {
-            throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) Must not be  adjacent because you must fly ")
+            throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) Must not must be adjacent because you must fly ")
         }
-       guard isNormalMoveFlyingMove else
+       if ( isNormalMoveFlyingMove )
         {
-             throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) Must be adjacent ")
+             throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) Must  be adjacent  because you CANNOT fly ")
         }
  
 
@@ -127,11 +127,14 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
     let startX = position[0]
     let startY = position[1]
  
-
+  
     try validatePositionLocation(xCordinate : startX , yCordinate : startY)
 
     try isPositionExisting(xCordinate: startX , yCordinate : startY , matX : board.getLength() , matY : board.getWidth() , board : board )
     ///check if it is in range 
+
+
+
 
   }
 
@@ -164,7 +167,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
           guard allowedNumbers.contains(yCordinate) else {
             throw NineMortisError.runtimeError("Illegal number for cordinates - \(yCordinate) ,number not in Range [1;7]")
         }
-        let y = PositionParser.convertLetterToPosition(position : xCordinate)
+        let y = try PositionParser.convertLetterToPosition(position : xCordinate)
         var x = 0
         if let inputY = Int(String(yCordinate))
         {
