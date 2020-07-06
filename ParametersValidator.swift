@@ -6,7 +6,7 @@ public class ParametersValidator
 private static let allowedLetters: [Character] = ("A"..."G").characters
  private static let allowedNumbers  : [Character] = ("1"..."7").characters
    private static let MOVEMENT_ARGUMENTS = 4 
-     private static let MOVEMENT_MIDDLE = 2
+     private static let MOVEMENT_MIDDLE_POSITION = 2
 
 
 
@@ -25,32 +25,30 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
   try validateSinglePosition(position : position.substring(to:2) , board : board)
     try validateSinglePosition(position : position.substring(from:2) , board : board)
 
-    let startPosition = try PositionParser.getPositionFromString(position : position.substring(to:MOVEMENT_MIDDLE) , board : board)
-    let endPosition =  try PositionParser.getPositionFromString(position : position.substring(from:MOVEMENT_MIDDLE) , board : board)
+    let startPosition = try PositionParser.getPositionFromString(position : position.substring(to:MOVEMENT_MIDDLE_POSITION) , board : board)
+    let endPosition =  try PositionParser.getPositionFromString(position : position.substring(from:MOVEMENT_MIDDLE_POSITION) , board : board)
 
-
-       guard startPosition.getColour() == currentPlayer.getColour() else {
-          throw NineMortisError.runtimeError("Piece to move \(startPosition.toString()) is not your colour")
-        }
-          guard endPosition.getColour() == PieceColour.EMPTY else {
-          throw NineMortisError.runtimeError("The position \(endPosition.toString()) is not empty")
-        }
-
-        let arePositionsAdj = arePositionsAdjacent(startPosition : startPosition , endPosition :endPosition , board : board)
+            let arePositionsAdj = arePositionsAdjacent(startPosition : startPosition , endPosition :endPosition , board : board)
         print("Can fly \(canFly)")
         print("Are adj \(arePositionsAdj)")
 
-        let isFlyingMoveAdj = canFly && arePositionsAdj
+
         let isNormalMoveFlyingMove = !canFly && !arePositionsAdj
 
-        if ( isFlyingMoveAdj )
-        {
-            throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) Must not must be adjacent because you must fly ")
-        }
        if ( isNormalMoveFlyingMove )
         {
              throw NineMortisError.runtimeError("Positions \(startPosition.toString()) and \(endPosition.toString()) Must  be adjacent  because you CANNOT fly ")
         }
+        
+       guard startPosition.getColour() == currentPlayer.getColour() else {
+          throw NineMortisError.runtimeError("Piece to move \(startPosition.toString()) is not your colour")
+        }
+          if ( endPosition.getColour() != BoardBoundElements.EMPTY_POSITION ) {
+          throw NineMortisError.runtimeError("The position \(endPosition.toString()) is not . (empty)")
+        }
+
+
+
  
 
   }
@@ -149,7 +147,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
     let y = position.getY()
 
     guard board.isPointExisting(xCordinate : x , yCordinate : y) else {
-            throw NineMortisError.runtimeError("Position \(x) \(y) does not exist")
+            throw NineMortisError.runtimeError("Position you have entered \(position.toString()) does not exist")
         }
 
   }
@@ -183,7 +181,7 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
         guard board.isPointExisting(xCordinate : x , yCordinate : y) 
         else
         { 
-           throw NineMortisError.runtimeError("Illegal posiiton \(x)\(y)")
+           throw NineMortisError.runtimeError("Position does not exist \(xCordinate)\(yCordinate)")
         }
 
 

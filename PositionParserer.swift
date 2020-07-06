@@ -64,10 +64,10 @@ public static func getPosition(xCordinate : Int , yCordinate : Int ,board : Boar
 
     // print("new fetch \(yCordinate) \(xCordinate)")
      let colour = board.getPositionColour(x : xCordinate , y : yCordinate)
-     let boardColour = getPieceColourFromString(colour : colour)
+
   
 
-    return BoardPosition(xCordinate : xCordinate , yCordinate : yCordinate , colour : boardColour)
+    return BoardPosition(xCordinate : xCordinate , yCordinate : yCordinate , colour : colour)
 
 }
 
@@ -90,39 +90,14 @@ public static func getPositionFromString(position : String, board : Board) throw
       print("Gonna fetch \(yCordinate) \(xCordinate)")
     xCordinate = PositionParser.convertInputIndexToPosition(position : xCordinate)
     let colour = board.getPositionColour(x : xCordinate , y : yCordinate)
-    let convertedColour = getPieceColourFromString(colour : colour)
+ 
      print("new fetch \(yCordinate) \(xCordinate)")
-    return BoardPosition(xCordinate : xCordinate , yCordinate : yCordinate , colour : convertedColour)
+    return BoardPosition(xCordinate : xCordinate , yCordinate : yCordinate , colour : colour)
 
 }
 
 
 
-
- public    static func getPieceColourFromString ( colour : String) -> PieceColour
-  {
-    if( colour == PlayerColours.WHITE_FIGURE)
-    {
-      return PieceColour.WHITE
-    }
-    else if (colour == PlayerColours.BLACK_FIGURE )
-    {
-      return PieceColour.BLACK
-    }
-    else if ( colour == BoardBoundElements.HORIZONTAL_LINE)
-    {
-      return PieceColour.HORIZONTAL_LINE
-    }
-     else if ( colour == BoardBoundElements.VERTICAL_LINE)
-    {
-         return PieceColour.VERTICAL_LINE
-    }
-    else
-    {
-      return PieceColour.EMPTY
-    }
-
-  }
 
 
 
@@ -139,7 +114,7 @@ public static func getOffset(position : BoardPosition , board : Board) -> (first
   var yAnswer = 0
   var xAnswer = 0
   let halfLength = (board.getLength() - 1) 
-   let halfHeight = (board.getWidth() - 1)
+
    let matrixLength = board.getLength() 
    let matrixWidth = board.getWidth() 
  
@@ -161,7 +136,7 @@ private static func findYOffset(pointX : Int , matrixLength : Int , matrixWidth 
 {
 
   var yAnswer = 0;
-      var difference =  abs ( ((matrixWidth ) / 2) - pointX )
+      let difference =  abs ( ((matrixWidth ) / 2) - pointX )
 
 if(difference == 0)
 {
@@ -365,10 +340,10 @@ public static func findSameColour(firstPoint : BoardPosition , secondPoint : Boa
           let firstPointColour = board.getPositionColour(position : firstPoint)
            let secondPointColour = board.getPositionColour(position : secondPoint)
             let thirdPointColour = board.getPositionColour(position : thirdPoint)
-            if(firstPointColour == secondPointColour && secondPointColour == thirdPointColour  )
+            if(firstPointColour == secondPointColour && secondPointColour == thirdPointColour && firstPointColour != BoardBoundElements.EMPTY_POSITION  )
             {
-                // print("THIS ARE MILL LOL \(firstPoint.toString()) , \(secondPoint.toString()) , \(thirdPoint.toString()) ")
-                //  print("With coloursL \(firstPointColour) , \(secondPointColour) , \(thirdPointColour) ")
+                 print("THIS ARE MILL LOL \(firstPoint.toString()) , \(secondPoint.toString()) , \(thirdPoint.toString()) ")
+                  print("With colours \(firstPointColour) , \(secondPointColour) , \(thirdPointColour) ")
               return 1
             }
       }

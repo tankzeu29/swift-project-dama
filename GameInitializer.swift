@@ -32,7 +32,7 @@ public func start()
 
 
     let board = getBoard()
-    board.printBoard()
+   board.printBoard()
     while(true)
     {
           print("Choose 1 for black or 2 for white figures")
@@ -49,6 +49,7 @@ public func start()
       
             } catch NineMortisError.runtimeError(let errorMessage) {
                   print(errorMessage)
+                
 
       }
       catch
@@ -56,14 +57,16 @@ public func start()
           print(GameExceptionMessages.UNEXEPECTED_EXCEPTION)
       }
 
-
+        board.printBoard()
     }
 
- var placedFigures = 0 //no hack must be 0
+ var placedFigures = 19 //no hack must be 0
 
-        //hacks
-    /*
-    let hacks = ["A4","G1","B2" ,"G7","C4","D5","D1","F4","B6","D7","B4","A7","A1","A7"]
+
+   let hacks = ["G1","B2","A1","C4","A4","B6","G4"]
+     // let hacks = ["A1","A4","A7","D7","G7","G4","G1","D1"]
+
+  //   let hacks = ["A1","A4","A7","D7","G7","G4","G1","D1","C5","D5","E5","E4","E3","D3","C3","C4","B4","D2","F4","D6"]
     for playerInput in hacks
     {
       do{
@@ -83,8 +86,29 @@ public func start()
           print("Very bad")
       }
     }
+
+
+        for playerInput in hacks
+    {
+      do{
+          try board.setSinglePosition(positionCordinates : playerInput , currentPlayer : currentPlayer , oponent: oponent , isMovement : true)
+
+
+      let tempPlayer = currentPlayer
+       currentPlayer = oponent
+      oponent = tempPlayer
+
+       } catch NineMortisError.runtimeError(let errorMessage) {
+     print(errorMessage)
+
+      }
+      catch
+      {
+          print("Very bad")
+      }
+    }
       board.printBoard()
-  */
+  
     
 
  
@@ -95,9 +119,11 @@ public func start()
       {
         break;
       }
+
       board.printBoard()
 
  print(IngameMessages.ENTER_INPUT_PLACE)
+  print("\(currentPlayer.getColour()) turn")
  if let playerInput = readLine() {
       do {
       print("Enter Position to move , steps \(placedFigures) ")
@@ -126,20 +152,24 @@ public func start()
 
 
       } catch NineMortisError.runtimeError(let errorMessage) {
+       board.printBoard()
       print(errorMessage)
+       print(IngameMessages.ENTER_INPUT_AGAIN)
    
       }
       catch
-      {
+      {    board.printBoard()
           print(GameExceptionMessages.UNEXEPECTED_EXCEPTION)
+           print(IngameMessages.ENTER_INPUT_AGAIN)
       }
-         board.printBoard()
+       
 
   } else {
+     board.printBoard()
       print(IngameMessages.ENTER_INPUT_AGAIN)
 }
 
-
+    
   }
 
 
@@ -150,41 +180,41 @@ public func start()
 }
 
  
-private func  parseColourNumber(number : String)  throws -> PieceColour
+private func  parseColourNumber(number : String)  throws -> String
  {
     if let playerChoice = Int(number) {
           
       if( playerChoice == 1)
       {
-        return PieceColour.BLACK
+        return BoardBoundElements.BLACK_FIGURE
       }
       else if(playerChoice == 2)
       {
-        return PieceColour.WHITE
+        return BoardBoundElements.WHITE_FIGURE
       }
       else
       {
-        throw NineMortisError.runtimeError("Illegal number \(playerChoice)")
+        throw NineMortisError.runtimeError("Illegal number - \(playerChoice)")
       }
     }
     else
     {
-       throw NineMortisError.runtimeError("Input not integer \(number)")
+       throw NineMortisError.runtimeError("Input not integer - \(number)")
     }
 
 
  
  }
 
- private func getOponentColour(colour : PieceColour) -> PieceColour
+ private func getOponentColour(colour : String) -> String
  {
-   if( colour == PieceColour.WHITE)
+   if( colour == BoardBoundElements.WHITE_FIGURE)
    {
-     return PieceColour.BLACK
+     return BoardBoundElements.BLACK_FIGURE
    }
    else
    {
-     return PieceColour.WHITE
+     return BoardBoundElements.WHITE_FIGURE
    }
  }
 

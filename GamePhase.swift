@@ -4,14 +4,14 @@ public class  GamePhase
 {
     var board : Board 
  
-    var startPieceColour : PieceColour
+    var startPieceColour : String
     var player1 : Player
     var player2 : Player
   public init(board : Board , player1 : Player , player2 : Player)
   {
     self.board = board
 
-    self.startPieceColour = PieceColour.WHITE
+    self.startPieceColour = BoardBoundElements.WHITE_FIGURE
     self.player1 = player1
     self.player2 = player2
     print("In move constructor \(player1.info()) , \(player2.info()) ")
@@ -44,12 +44,12 @@ public   func setSecondPlayer(secondPlayer : Player)
 
 
 
- public  func setStartPieceColour ( colour : PieceColour)
+ public  func setStartPieceColour ( colour : String)
   {
     startPieceColour = colour
   }
 
- public  func getStartPieceColour() -> PieceColour
+ public  func getStartPieceColour() -> String
   {
     return startPieceColour
   }

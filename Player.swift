@@ -3,18 +3,18 @@
 public class Player
 {
 
-  var piecesColour = PieceColour.WHITE
+  var piecesColour = BoardBoundElements.WHITE_FIGURE
   var state = PlayerMoveState.FREE
   var currentPieces = [BoardPosition]()
   init()
   {
 
   }
-  public init(colour : PieceColour)
+  public init(colour : String)
   {
     self.piecesColour = colour
   }
- public  init(pieces : Int , colour : PieceColour)
+ public  init(pieces : Int , colour : String)
   {
     self.piecesColour = colour
  
@@ -46,12 +46,12 @@ public func  getPieces() -> [BoardPosition]
 
   
 
- public  func getColour() -> PieceColour
+ public  func getColour() -> String
   {
     return piecesColour
   }
 
- public  func setColour(colour : PieceColour)
+ public  func setColour(colour : String)
   {
     piecesColour = colour
   }

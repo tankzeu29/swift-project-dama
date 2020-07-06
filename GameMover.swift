@@ -24,9 +24,11 @@ public func start()
    board.printBoard()
        print("Current player  \(currentPlayer.info())") 
      print("Oponent  \(oponent.info())") 
+     
   while(true)
   {
-
+     print("Current player  \(currentPlayer.info())") 
+     print("Oponent  \(oponent.info())") 
         let currentState = shouldGameEnd(firstPlayer:currentPlayer, secondPlayer : oponent, board : board)
         if( currentState != EndGameState.IN_PROGRESS)
         { 
@@ -92,9 +94,9 @@ public func start()
 
 
         let startPosition = try PositionParser.getPositionFromString(position : position.substring(to:2) , board : board)
-
-       try board.setSinglePosition(positionCordinates : position.substring(from:2) , currentPlayer :currentPlayer , oponent : oponent , isMovement : false )
        board.removeAtPosition(point : startPosition)
+       try board.setSinglePosition(positionCordinates : position.substring(from:2) , currentPlayer :currentPlayer , oponent : oponent , isMovement : false )
+      
        currentPlayer.removePiece(position : startPosition)
 
    
@@ -113,6 +115,7 @@ private func canPlayerFly(player : Player) -> Bool
   let secondEnd = canMovePieces(currentPlayer : secondPlayer , board : board)
 
   print("First move \(firstEnd) , second : \(secondEnd) ")
+  print("Player1 col \(firstPlayer.getColour()) , Player2 : \(secondPlayer.getColour()) ")
   if(!firstEnd && !secondEnd)
   {
     return EndGameState.DRAW
@@ -120,11 +123,11 @@ private func canPlayerFly(player : Player) -> Bool
 
   if(!firstEnd)
   {
-    return EndGameState.PLAYER1_WINNER
+    return EndGameState.PLAYER2_WINNER
   }
   else if(!secondEnd)
   {
-    return EndGameState.PLAYER2_WINNER
+    return EndGameState.PLAYER1_WINNER
   }
   else
   {

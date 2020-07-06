@@ -5,24 +5,24 @@ public class BoardPosition : Equatable
 
  private var xCordinate : Int
  private var yCordinate : Int
- private var colour : PieceColour
+ private var colour : String
 
  public init()
  {
    xCordinate = 0
    yCordinate = 0
-   colour = PieceColour.WHITE
+   colour = BoardBoundElements.WHITE_FIGURE
  }
 
  public  init (xCordinate : Int, yCordinate : Int )
  {
    self.xCordinate = xCordinate
    self.yCordinate = yCordinate
-   self.colour = PieceColour.WHITE
+   self.colour = BoardBoundElements.WHITE_FIGURE
  }
 
 
- public convenience init (xCordinate : Int, yCordinate : Int , colour : PieceColour)
+ public convenience init (xCordinate : Int, yCordinate : Int , colour : String)
  {
     self.init(xCordinate : xCordinate , yCordinate : yCordinate)
    self.colour = colour
@@ -39,12 +39,12 @@ public  func getX() -> Int
    return yCordinate
  }
  
- public func getColour() -> PieceColour
+ public func getColour() -> String
  {
    return colour
  }
 
- public func setColour(colour : PieceColour)
+ public func setColour(colour : String)
  {
    self.colour = colour
  }
