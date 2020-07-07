@@ -4,7 +4,6 @@ public class Player
 {
 
   var piecesColour = BoardBoundElements.WHITE_FIGURE
-  var state = PlayerMoveState.FREE
   var currentPieces = [BoardPosition]()
   init()
   {
@@ -31,7 +30,7 @@ public func  getPieces() -> [BoardPosition]
   }
   public   func  removePiece( position : BoardPosition)
   {
-      print("To remove \(position.toString())")
+
 
       currentPieces = currentPieces.filter() { $0 != position }
     

@@ -3,7 +3,7 @@
 public class  GamePhase
 {
     var board : Board 
- 
+
     var startPieceColour : String
     var player1 : Player
     var player2 : Player
@@ -16,6 +16,7 @@ public class  GamePhase
     self.player2 = player2
     print("In move constructor \(player1.info()) , \(player2.info()) ")
   }
+
 
  public  func getFirstPlayer() -> Player
   {

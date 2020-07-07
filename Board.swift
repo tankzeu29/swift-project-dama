@@ -3,20 +3,24 @@
 public class Board
 {
 
-private var arr = [[String]]()
+private var board = [[String]]()
+
 private var header = ""
 
 private let matrixLength = 25
 private let matrixWidth = 13
 private let startColumnOffset = "  "
-private   let letters = [ "A" , "B", "C", "D", "E" , "F" , "G"]
 private  var ROWS_TO_INITIALIZE = 0
 private  let LETTERS_OFFSET = 4
 private  let HEADER_START_OFFSET = "  "
+private  let allowedLetters: [Character] = ("A"..."G").characters
+ private  let allowedNumbers  : [Character] = ("1"..."7").characters
+
 
 func getLength() -> Int
 {
   return matrixLength
+  
 }
 func getWidth() -> Int 
 {
@@ -26,9 +30,9 @@ func getWidth() -> Int
 
 public init()
 {
- arr = Array(repeating: Array(repeating: BoardBoundElements.ILLEGAL_POSITION, count: matrixLength), count: matrixWidth)
-ROWS_TO_INITIALIZE = letters.count - 2
-   
+ board = Array(repeating: Array(repeating: BoardBoundElements.ILLEGAL_POSITION, count: matrixLength), count: matrixWidth)
+ROWS_TO_INITIALIZE = allowedLetters.count - 2
+
 
  setHeader()
 
@@ -53,11 +57,11 @@ private func initializeMatrixHorizontal()
        if(i == start || i == end || i == bound)
        {
 
-         arr[currentRow][i] = BoardBoundElements.EMPTY_POSITION
+         board[currentRow][i] = BoardBoundElements.EMPTY_POSITION
        }
        else
        {
-        arr[currentRow][i] = BoardBoundElements.HORIZONTAL_LINE
+        board[currentRow][i] = BoardBoundElements.HORIZONTAL_LINE
        }
      }
      if ( step < 2)
@@ -88,7 +92,7 @@ private func initializeMatrixHorizontal()
      let isOutsideMiddleRectangle = i < (middleY - tileOffset) || i > (middleY + tileOffset)
       if( isOutsideMiddleRectangle )
       {
-               arr[middleX][i] =  BoardBoundElements.HORIZONTAL_LINE
+               board[middleX][i] =  BoardBoundElements.HORIZONTAL_LINE
       }
 
    }
@@ -113,12 +117,12 @@ private func initializeMatrixVerical()
       if(i == begin || i == finish || i == middle)
       {
         
-        arr[i][step] = BoardBoundElements.EMPTY_POSITION
+        board[i][step] = BoardBoundElements.EMPTY_POSITION
       }
       else
       {
       
-         arr[i][step] = BoardBoundElements.VERTICAL_LINE
+         board[i][step] = BoardBoundElements.VERTICAL_LINE
       }
  
     }
@@ -152,7 +156,7 @@ private func initializeMatrixVerical()
     let isEmptyPiecePosition = i % tileOffset == 0
     if( isOutsideMiddleRectangle && !isEmptyPiecePosition)
     {
-          arr[i][middleY]  = BoardBoundElements.VERTICAL_LINE
+          board[i][middleY]  = BoardBoundElements.VERTICAL_LINE
     }
   
   }
@@ -168,14 +172,14 @@ private func setHeader()
 
   
 
-    let emptySpaces  = (matrixLength - 1) / letters.count
+    let emptySpaces  = (matrixLength - 1) / allowedLetters.count
    
     let spaces = String(repeating: " ", count: emptySpaces + LETTERS_OFFSET ) 
  
       var tempHeader = HEADER_START_OFFSET
-      for letter in letters{
+      for letter in allowedLetters{
 
-             tempHeader  += letter + spaces
+             tempHeader  += String(letter) + spaces
       }
       self.header = tempHeader
 }
@@ -195,11 +199,11 @@ public func printBoard()
    }
    else
    {
-     matrixRow += "  "
+     matrixRow += startColumnOffset
    }
   for j in 0...matrixLength - 1{
 
-      let result =  arr[i][j]
+      let result =  board[i][j]
 
     
  
@@ -217,15 +221,15 @@ public func printBoard()
 
 public func isOccupied( xPosition : Int,  yPosition : Int) -> Bool 
 {
-    print("Is occupied \(xPosition) \(yPosition) \(arr[xPosition][yPosition])")
-     return arr[xPosition][yPosition] != BoardBoundElements.EMPTY_POSITION 
+    print("Is occupied \(xPosition) \(yPosition) \(board[xPosition][yPosition])")
+     return board[xPosition][yPosition] != BoardBoundElements.EMPTY_POSITION 
 
 }
 
 private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
 {
  // print("\(xPosition) \(yPosition) \(colour)")
-  arr[xPosition][yPosition] = colour
+  board[xPosition][yPosition] = colour
 }
 
 
@@ -233,7 +237,7 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
   {
 
     
-      try ParametersValidator.validateSinglePosition(position : positionCordinates , board : self)
+      try validateSinglePosition(position : positionCordinates )
 
    
        let currentPieceCell = try getPositionWithColour(position : positionCordinates)
@@ -244,7 +248,7 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
       
 
       {
-          throw NineMortisError.runtimeError("Possition is \(currentPieceCell.toString()) not valid position")
+          throw NineMortisError.runtimeError("Position  \(currentPieceCell.toString()) not valid position")
       }
 
    
@@ -258,7 +262,7 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
        
         currentPlayer.addPiece(position : currentPieceCell)
           
-       var totalMills = PositionParser.findMills(position : currentPieceCell , board : self )
+       let totalMills = MillsFinder.findMills(position : currentPieceCell , board : self )
           print("Found mills : \(totalMills) ")
       if(totalMills > 0)
       {
@@ -279,11 +283,11 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
 
   private func removeDamaPoints(currentPlayer : Player, oponent : Player )  
   {
-      var totalRemoved = 0
-          print("Enter cordinates to remove Enemy figure")
-          while(totalRemoved !=  1 || oponent.getTotalPieces() <= 3)
+    
+      
+          while(true)
           {
-            printBoard()
+            print(IngameMessages.ENTER_VALID_POINT)
            if let playerInput = readLine() {
 
             do {
@@ -291,25 +295,23 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
 
           if(position.getColour() == BoardBoundElements.ILLEGAL_POSITION)
           {
-            throw NineMortisError.runtimeError("You cannot remove empty position" )
+            throw NineMortisError.runtimeError(GameExceptionMessages.REMOVE_EMPTY_POSITION )
           }
-           if(position.getColour() != currentPlayer.getColour() && position.getColour() == oponent.getColour() )
+
+          let isColourCorrect = position.getColour() != currentPlayer.getColour() && position.getColour() == oponent.getColour()
+            if(!isColourCorrect) 
             {
-             
-            }
-            else
-            {
-                throw NineMortisError.runtimeError("You cannot remove empty position or your own piece")
+                throw NineMortisError.runtimeError(GameExceptionMessages.REMOVE_ILLEGAL_POSITION)
             }
 
-            let currentPieceMills = PositionParser.findMills(position : position , board : self)
+            let currentPieceMills = MillsFinder.findMills(position : position , board : self)
             let oponentPiecesNotInMill = findAllNonMillPieces(player : oponent )
-            if(oponentPiecesNotInMill.count > 0 && currentPieceMills > 0)
+            if( currentPieceMills > 0 && !oponentPiecesNotInMill.contains(position))
             {
               
               var nonMillFiguresMessage = ""
-              for pos in oponentPiecesNotInMill{
-                        nonMillFiguresMessage += pos.toString() + ","
+              for position in oponentPiecesNotInMill{
+                        nonMillFiguresMessage += position.toString() + ","
               }
         
                throw NineMortisError.runtimeError("This piece is part of oponent mill , you cannot remove it , try again.Possible positions to remove are \(nonMillFiguresMessage)")
@@ -322,12 +324,12 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
       
            } catch NineMortisError.runtimeError(let errorMessage) {
                   print(errorMessage)
-                  print(IngameMessages.ENTER_VALID_POINT)
+             
            }
            catch
            {
              print(GameExceptionMessages.UNEXEPECTED_EXCEPTION)
-             print(IngameMessages.ENTER_VALID_POINT)
+          
            }
 
       
@@ -336,6 +338,8 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
           {
             print(IngameMessages.ENTER_VALID_POINT)
           }
+
+           printBoard()
           }
   }
   
@@ -346,7 +350,7 @@ private func findAllNonMillPieces(player : Player ) -> [BoardPosition]
   let playerPieces = player.getPieces()
   for piece in playerPieces
   {
-    let totalMills =  PositionParser.findMills(position : piece , board : self)
+    let totalMills =  MillsFinder.findMills(position : piece , board : self)
     if(totalMills == 0)
     {
       nonMillPositions.append(piece)
@@ -362,7 +366,7 @@ private func findAllNonMillPieces(player : Player ) -> [BoardPosition]
 
  public func getPositionColour(x : Int , y : Int ) -> String
 {
-    return arr[x][y]
+    return board[x][y]
 }
 
 public func getPositionColour(position : BoardPosition) -> String
@@ -393,7 +397,7 @@ public func isPositionEmpty(position : BoardPosition) -> Bool
 
 public func getPositionWithColour(position : String ) throws -> BoardPosition
 {
-   try ParametersValidator.validateSinglePosition(position : position , board : self)
+   try validateSinglePosition(position : position )
 
   
     let yCordinate = try PositionParser.convertLetterToPosition(position : position[0]) 
@@ -416,7 +420,7 @@ public func getPositionWithColour(position : String ) throws -> BoardPosition
 
 public func getPositionWithPlayerColour(position : String , colour : String ) throws -> BoardPosition
 {
-   try ParametersValidator.validateSinglePosition(position : position , board : self)
+   try validateSinglePosition(position : position )
 
   
     let yCordinate = try PositionParser.convertLetterToPosition(position : position[0]) 
@@ -439,7 +443,7 @@ public func getPositionWithPlayerColour(position : String , colour : String ) th
 public func isPointExisting(xCordinate : Int , yCordinate : Int) -> Bool
 {
 
-  //print("Does \(xCordinate) \(yCordinate) exist?")
+
   let isXgreaterThanZero =  (xCordinate >= 0)
   let isYgreaterThanZero = (yCordinate >= 0)
   let isXinMaxRange = (xCordinate <= (matrixWidth - 1))
@@ -448,13 +452,13 @@ public func isPointExisting(xCordinate : Int , yCordinate : Int) -> Bool
 
   if(!inRange)
   {
-    //print("Not in range")
+
     return false
   }
-  let colour = arr[xCordinate][yCordinate]
+  let colour = board[xCordinate][yCordinate]
   if(colour == BoardBoundElements.ILLEGAL_POSITION || colour == BoardBoundElements.HORIZONTAL_LINE || colour == BoardBoundElements.VERTICAL_LINE   )
   {
-   // print("Bad colour \(colour)")
+
     return false
   }
   return true
@@ -473,10 +477,103 @@ public func isPointExisting(point : BoardPosition) -> Bool
 public func removeAtPosition(point : BoardPosition)
 {      let xCordinate = point.getX()
        let yCordinate = point.getY()
-      arr[xCordinate][yCordinate] = BoardBoundElements.EMPTY_POSITION
+      board[xCordinate][yCordinate] = BoardBoundElements.EMPTY_POSITION
 }
 
+  
+
+
+
+ public  func validateSinglePosition(position : String ) throws
+  {
+
+
+
+
+    guard position.count == 2 else {
+          throw NineMortisError.runtimeError("Illegal number of paramters \(position.count). It must be 2")
+        }
+
+    let startX = position[0]
+    let startY = position[1]
+ 
+  
+    try validatePositionLocation(xCordinate : startX , yCordinate : startY)
+
+    try isPositionExisting(xCordinate: startX , yCordinate : startY , matX : getLength() , matY : getWidth()  )
+    ///check if it is in range 
+
+
+
+
   }
+
+     public  func validateSinglePosition(position : BoardPosition) throws
+  {
+
+
+
+
+    let x = position.getX()
+    let y = position.getY()
+
+    guard isPointExisting(xCordinate : x , yCordinate : y) else {
+            throw NineMortisError.runtimeError("Position you have entered \(position.toString()) does not exist")
+        }
+
+  }
+
+ public   func validatePositionLocation(xCordinate : Character , yCordinate : Character) throws
+  {
+
+    guard xCordinate.isLetter else {
+          throw NineMortisError.runtimeError("First symbol -  \(xCordinate) ,is not a letter")
+        }
+
+    guard yCordinate.isNumber else {
+         throw NineMortisError.runtimeError("Second symbol \(yCordinate) is not a number")
+        }
+
+
+
+
+  }
+
+
+    public  func isPositionExisting( xCordinate : Character , yCordinate : Character , matX : Int, matY : Int ) throws
+  {
+
+  
+        guard allowedLetters.contains(xCordinate) else {
+            throw NineMortisError.runtimeError("Illegal letter for cordinates - \(xCordinate) ,letter not in Range [A-G]")
+        }
+          guard allowedNumbers.contains(yCordinate) else {
+            throw NineMortisError.runtimeError("Illegal number for cordinates - \(yCordinate) ,number not in Range [1-7]")
+        }
+        let y = try PositionParser.convertLetterToPosition(position : xCordinate)
+        var x = 0
+        if let inputY = Int(String(yCordinate))
+        {
+           x = inputY
+        }
+        else
+        {
+            throw NineMortisError.runtimeError("Passed Parameter \(yCordinate) is not a number ")
+        }
+
+         x = PositionParser.convertInputIndexToPosition(position : x)
+     
+        guard isPointExisting(xCordinate : x , yCordinate : y) 
+        else
+        { 
+           throw NineMortisError.runtimeError("Position does not exist \(xCordinate)\(yCordinate)")
+        }
+
+
+        
+  }
+  }
+
 
 
 

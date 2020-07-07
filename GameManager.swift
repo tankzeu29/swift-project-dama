@@ -8,6 +8,7 @@ public class GameManager{
 
  public  init()
   {
+
     self.board = Board()
 
   }
@@ -17,13 +18,12 @@ public class GameManager{
   {
     let player1 = Player()
     let player2 = Player()
-  
+
+
    
-  let gameInitializer = GameInitializer(gameBoard : board , player1 : player1 , player2: player2)
+  let gameInitializer = GameInitializer(gameBoard : board  , player1 : player1 , player2: player2)
   gameInitializer.start()
 
-
-    print("PHASE 2 to begin")
 
     let gameMover = GameMover(gameBoard: board , player1 : gameInitializer.getFirstPlayer() , player2: gameInitializer.getSecondPlayer())
     gameMover.setStartPieceColour(colour :  gameInitializer.getFirstPlayer().getColour())

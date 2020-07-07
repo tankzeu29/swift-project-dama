@@ -60,9 +60,9 @@ public func start()
         board.printBoard()
     }
 
- var placedFigures = 19 //no hack must be 0
+ var placedFigures = 0 //no hack must be 0
 
-
+    /*
    let hacks = ["G1","B2","A1","C4","A4","B6","G4"]
      // let hacks = ["A1","A4","A7","D7","G7","G4","G1","D1"]
 
@@ -109,7 +109,7 @@ public func start()
     }
       board.printBoard()
   
-    
+    */
 
  
   while(true) {
@@ -173,7 +173,7 @@ public func start()
   }
 
 
-  print("END OF INITIALIZATION \(firstPlayer.info()) , \(secondPlayer.info())")
+ // print("END OF INITIALIZATION \(firstPlayer.info()) , \(secondPlayer.info())")
   setFirstPlayer(firstPlayer : firstPlayer)
   setSecondPlayer(secondPlayer : secondPlayer)
 

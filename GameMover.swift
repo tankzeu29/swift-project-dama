@@ -2,7 +2,7 @@
 public class GameMover : GamePhase
 {
 
-
+private let NEEDED_PIECES_TO_FLY = 3
 
  public  init( gameBoard : Board , player1 : Player , player2 : Player)
 {
@@ -15,7 +15,7 @@ public class GameMover : GamePhase
 public func start()
 {
 
-  print("GAME_MOVER_STARTED")
+     print("Moving phase started!")
 
   let board = getBoard()
   var currentPlayer = getFirstPlayer()
@@ -90,7 +90,7 @@ public func start()
         }
 
 
-         try ParametersValidator.validateMovement(position : position , board : board , currentPlayer : currentPlayer , oponent : oponent , canFly : canCurrentPlayerFily)
+         try MovementValidator.validateMovement(position : position , board : board , currentPlayer : currentPlayer , oponent : oponent , canFly : canCurrentPlayerFily)
 
 
         let startPosition = try PositionParser.getPositionFromString(position : position.substring(to:2) , board : board)
@@ -105,7 +105,7 @@ public func start()
 
 private func canPlayerFly(player : Player) -> Bool
 {
-  return player.getTotalPieces() == 3
+  return player.getTotalPieces() == NEEDED_PIECES_TO_FLY
 }
 
 
@@ -116,10 +116,7 @@ private func canPlayerFly(player : Player) -> Bool
 
   print("First move \(firstEnd) , second : \(secondEnd) ")
   print("Player1 col \(firstPlayer.getColour()) , Player2 : \(secondPlayer.getColour()) ")
-  if(!firstEnd && !secondEnd)
-  {
-    return EndGameState.DRAW
-  }
+
 
   if(!firstEnd)
   {
@@ -153,7 +150,7 @@ private func canPlayerFly(player : Player) -> Bool
 
   for piece in currentPlayerPieces
   {
-    let offset = PositionParser.getOffset(position : piece, board : board)
+    let offset = BoardOffsetFinder.getOffset(position : piece, board : board)
     let xOffset = offset.first
     let yOffset = offset.second
     print("xOffset : \(xOffset) yOffset : \(yOffset)")
@@ -197,11 +194,7 @@ private func canPlayerFly(player : Player) -> Bool
 
  public func printWinner(winner : EndGameState)
 {
-  if(winner == EndGameState.DRAW)
-  {
-    print(IngameMessages.DRAW)
-  }
-  else if (winner == EndGameState.PLAYER1_WINNER)
+ if (winner == EndGameState.PLAYER1_WINNER)
   {
     print(IngameMessages.PLAYER1_WON)
   }
