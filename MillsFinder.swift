@@ -1,4 +1,6 @@
 
+/* finds the total mills for particular position
+*/
 class MillsFinder
 {
 
@@ -8,17 +10,21 @@ class MillsFinder
 
 
 
-
+/* Find the total mills for a position
+@position - the position to find with which mills it participate
+@board - game board
+@return - total mills the position is participating
+*/
 public static func findMills(position : BoardPosition , board : Board) -> Int
 {
 
 
   let tuple = BoardOffsetFinder.getOffset(position : position , board : board)
  
-  let destinationToCenterX = tuple.first
+  let destinationToCenterX = tuple.xAnswer
 
 
-  let destinationToCenterY = tuple.second
+  let destinationToCenterY = tuple.yAnswer
 
 
 
@@ -39,6 +45,12 @@ public static func findMills(position : BoardPosition , board : Board) -> Int
 
 
 
+/* Finds all mills for which a point is the center of the mill.
+@position - the position to find with which mills it participate
+@offset - distance to the next points 
+@board - incrementX - if true finds axis mills , else ordinate 
+@return - total mills the position is participating
+*/
 public static func findAdjacentMills(position : BoardPosition , offset : Int , incrementX : Bool , board : Board) -> Int
 {
   var result = 0
@@ -63,14 +75,14 @@ public static func findAdjacentMills(position : BoardPosition , offset : Int , i
   if(incrementX)
   {
 
-      print("CASE1")
+    
        secondPoint = try PositionParser.getPosition(xCordinate : secondPointValue , yCordinate : startY , board :board )
        thirdPoint = try  PositionParser.getPosition(xCordinate : thirdPointValue , yCordinate :startY, board :board ) 
-        print("CASE1_END")
+      
 
   }
   else
-  {   print("CASE2")
+  {   
       secondPoint = try  PositionParser.getPosition(xCordinate : startX , yCordinate : secondPointValue , board :board )
        thirdPoint = try  PositionParser.getPosition(xCordinate : startX , yCordinate : thirdPointValue , board :board ) 
   }
@@ -91,7 +103,12 @@ public static func findAdjacentMills(position : BoardPosition , offset : Int , i
 
 }
 
-
+/* Finds all parallel axis mills for which a point is Not center of the mill.
+@position - the position to find with which mills it participate
+@offset - distance to the next points 
+@board - incrementX - if true finds axis mills , else ordinate 
+@return - total mills the position is participating
+*/
 public static func findAdjAxisMills(position : BoardPosition , offset : Int , board : Board) -> Int
 {
   let startX = position.getX()

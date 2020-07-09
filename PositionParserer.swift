@@ -26,6 +26,10 @@ public static func convertLetterToPosition(position : Character) throws -> Int
       throw NineMortisError.runtimeError("Illegal column value \(position)  ")
   }
 }
+/*converts integer from [1-7] to a axis cordinate on the board 
+@param position - ordinate cordinate
+@return axis cordinate on the board
+*/
 
 public static func convertInputIndexToPosition(position : Int) -> Int
 {
@@ -52,7 +56,13 @@ public static func convertInputIndexToPosition(position : Int) -> Int
 
 
   
-
+/*
+Retrieves position on the board
+@xCordinate - axis cordinate
+@yCordinate - ordinate cordinate
+@board - game board
+@return the board position representing the input 
+*/
 
 public static func getPosition(xCordinate : Int , yCordinate : Int ,board : Board) throws -> BoardPosition
 {
@@ -66,6 +76,11 @@ public static func getPosition(xCordinate : Int , yCordinate : Int ,board : Boar
     return BoardPosition(xCordinate : xCordinate , yCordinate : yCordinate , colour : colour)
 
 }
+/*
+Retrieves position on the board from String
+@position - position on the board
+@return the board position representing the input 
+*/
 
 public static func getPositionFromString(position : String, board : Board) throws -> BoardPosition
 {
@@ -83,11 +98,11 @@ public static func getPositionFromString(position : String, board : Board) throw
     }
 
 
-      print("Gonna fetch \(yCordinate) \(xCordinate)")
+  
     xCordinate = PositionParser.convertInputIndexToPosition(position : xCordinate)
     let colour = board.getPositionColour(x : xCordinate , y : yCordinate)
  
-     print("new fetch \(yCordinate) \(xCordinate)")
+
     return BoardPosition(xCordinate : xCordinate , yCordinate : yCordinate , colour : colour)
 
 }

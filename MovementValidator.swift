@@ -1,4 +1,4 @@
-
+/*Validates if movement of a piece is correct in the move phase*/
 
 public class MovementValidator
 {
@@ -59,7 +59,11 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
 
   
-
+  /* Validate if 2 positions are adjacent by checking all possible cases - left,right ,top ,bottom 
+  @param startPosition - the position we try to move from
+  @parma endPosition - destination position
+  @return true if they are adjacent , else false
+  */
 
   public static func arePositionsAdjacent(startPosition : BoardPosition ,endPosition: BoardPosition, board : Board) -> Bool 
   {
@@ -68,8 +72,8 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
       let offset = BoardOffsetFinder.getOffset(position : startPosition , board : board)
       let startX = startPosition.getX()
       let startY = startPosition.getY()
-      let xOffset = offset.first
-      let yOffset = offset.second
+      let xOffset = offset.xAnswer
+      let yOffset = offset.yAnswer
 
    
       let isAdjacent = vlaidateAdjHelper(endPosition : endPosition ,startX :startX + xOffset , startY: startY ,board : board ) ||
@@ -81,6 +85,14 @@ private static let allowedLetters: [Character] = ("A"..."G").characters
 
 
   }
+
+    
+  /* Validate if there is adjacent position for specific offset 
+  @param endPosition - destination position
+  @param startX - axis cordinate of possible adjacent cell 
+  @param startY - ordinate cordinate of possible adjacent cell
+  @return true if they are adjacent , else false
+  */
 
   public static func vlaidateAdjHelper(endPosition : BoardPosition , startX :Int , startY : Int , board : Board) -> Bool
   {

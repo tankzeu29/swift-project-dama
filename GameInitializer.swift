@@ -1,8 +1,14 @@
 
+/*
+Initializes the first 
+phase which is each player to put 
+figures on the board
+*/
 
 public class GameInitializer : GamePhase
 {
 
+/*total pieces for both players to put */
  private let totalFiguresToPlace = 18
  
 public init( gameBoard : Board , player1 : Player , player2 : Player)
@@ -12,6 +18,7 @@ public init( gameBoard : Board , player1 : Player , player2 : Player)
 
 }
 
+/* starts the first phase */
 
 public func start()
 {
@@ -62,54 +69,7 @@ public func start()
 
  var placedFigures = 0 //no hack must be 0
 
-    /*
-   let hacks = ["G1","B2","A1","C4","A4","B6","G4"]
-     // let hacks = ["A1","A4","A7","D7","G7","G4","G1","D1"]
 
-  //   let hacks = ["A1","A4","A7","D7","G7","G4","G1","D1","C5","D5","E5","E4","E3","D3","C3","C4","B4","D2","F4","D6"]
-    for playerInput in hacks
-    {
-      do{
-          try board.setSinglePosition(positionCordinates : playerInput , currentPlayer : currentPlayer , oponent: oponent , isMovement : true)
-
-
-      let tempPlayer = currentPlayer
-       currentPlayer = oponent
-      oponent = tempPlayer
-
-       } catch NineMortisError.runtimeError(let errorMessage) {
-     print(errorMessage)
-
-      }
-      catch
-      {
-          print("Very bad")
-      }
-    }
-
-
-        for playerInput in hacks
-    {
-      do{
-          try board.setSinglePosition(positionCordinates : playerInput , currentPlayer : currentPlayer , oponent: oponent , isMovement : true)
-
-
-      let tempPlayer = currentPlayer
-       currentPlayer = oponent
-      oponent = tempPlayer
-
-       } catch NineMortisError.runtimeError(let errorMessage) {
-     print(errorMessage)
-
-      }
-      catch
-      {
-          print("Very bad")
-      }
-    }
-      board.printBoard()
-  
-    */
 
  
   while(true) {
@@ -131,7 +91,7 @@ public func start()
       print("Oponent : \(oponent.info())")
 
 
-      try board.setSinglePosition(positionCordinates : playerInput , currentPlayer : currentPlayer , oponent: oponent , isMovement : true)
+      try board.setSinglePosition(positionCordinates : playerInput , currentPlayer : currentPlayer , oponent: oponent )
     
       placedFigures = placedFigures + 1
 
@@ -179,7 +139,10 @@ public func start()
 
 }
 
- 
+ /* parses choice for player colour 
+ * @arg number - the choice of colour
+ @return chosen colour to play with
+ */
 private func  parseColourNumber(number : String)  throws -> String
  {
     if let playerChoice = Int(number) {

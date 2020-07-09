@@ -1,5 +1,7 @@
 
-
+/*
+* Represents the game board 
+*/
 public class Board
 {
 
@@ -16,12 +18,18 @@ private  let HEADER_START_OFFSET = "  "
 private  let allowedLetters: [Character] = ("A"..."G").characters
  private  let allowedNumbers  : [Character] = ("1"..."7").characters
 
-
+/*
+* Returns the matrix length
+*/
 func getLength() -> Int
 {
   return matrixLength
   
 }
+
+/*
+* Return the matrix width
+*/
 func getWidth() -> Int 
 {
   return matrixWidth
@@ -42,7 +50,9 @@ initializeMatrixVerical()
 }
 
 
-
+/*
+* Initializes all horizontal lines
+*/
 private func initializeMatrixHorizontal()
 {
    var start = 0
@@ -101,6 +111,9 @@ private func initializeMatrixHorizontal()
 }
 
 
+/*
+* Initializes all verticle lines
+*/
 private func initializeMatrixVerical()
 {
 
@@ -167,6 +180,10 @@ private func initializeMatrixVerical()
 
 
 
+/*
+* Creates header on top of the matrix to 
+* display the letters from A-G
+*/
 private func setHeader()
 {
 
@@ -185,6 +202,9 @@ private func setHeader()
 }
 
 
+/*
+* Prints the board in the console
+*/
 public func printBoard()
 {
   
@@ -219,21 +239,37 @@ public func printBoard()
   print("\n")
 }
 
+/*
+* Returns if position is not empty
+* @param xPosition - the x position on the axis of the point
+* @param yPosition - the y position on the ordinate of the point
+* @return true if the position is occupied else return false if the position is free
+*/
 public func isOccupied( xPosition : Int,  yPosition : Int) -> Bool 
 {
     print("Is occupied \(xPosition) \(yPosition) \(board[xPosition][yPosition])")
      return board[xPosition][yPosition] != BoardBoundElements.EMPTY_POSITION 
 
 }
-
+/*
+* Sets colour for particular board cell
+* @param xPosition - the x position on the axis of the point
+* @param yPosition - the y position on the ordinate of the 
+ @param colour - colour to be set
+*/
 private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
 {
  // print("\(xPosition) \(yPosition) \(colour)")
   board[xPosition][yPosition] = colour
 }
 
-
-  func setSinglePosition( positionCordinates : String ,  currentPlayer  : Player , oponent : Player, isMovement : Bool) throws
+/*
+* Sets colour for particular board cell
+* @param positionCordinates - cell cordinate
+* @param currentPlayer - the player that moves the piece
+*  @param oponent - @currentPlayer' s oponent
+*/
+  func setSinglePosition( positionCordinates : String ,  currentPlayer  : Player , oponent : Player) throws
   {
 
     
@@ -280,7 +316,12 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
 
 
 
-
+/*
+* Removes an oponent piece
+* @param positionCordinates - cell cordinate
+* @param currentPlayer - the player that moves the piece
+*
+*/
   private func removeDamaPoints(currentPlayer : Player, oponent : Player )  
   {
     
@@ -343,7 +384,11 @@ private func setTileColor(xPosition : Int , yPosition : Int , colour : String)
           }
   }
   
-
+/*
+* Finds all pieces that are not part of mill for a player
+* @param player - player to find non-mill pieces
+* @return nonMillPositions - list containing all pieces not in a mill
+*/
 private func findAllNonMillPieces(player : Player ) -> [BoardPosition]
 {
   var nonMillPositions = [BoardPosition]()
@@ -363,12 +408,22 @@ private func findAllNonMillPieces(player : Player ) -> [BoardPosition]
 
 
 
-
+/*
+* Returns the colour for specific position
+* @param x - the x position on the axis of the point
+* @param y - the y position on the ordinate of the point
+  @return board[x][y] - the colour of the board cell
+*/
  public func getPositionColour(x : Int , y : Int ) -> String
 {
     return board[x][y]
 }
 
+/*
+* Returns the colour for specific position
+* @param position - the cell position on the board
+* @return the colour of the board cell
+*/
 public func getPositionColour(position : BoardPosition) -> String
 {
   let x = position.getX()
@@ -376,6 +431,11 @@ public func getPositionColour(position : BoardPosition) -> String
   return getPositionColour(x : x , y : y)
 }
 
+/*
+* Checks if position is free for a player to move his piece
+* @param position - the cell position on the board
+* @return true if the position is free for the player to move , else false
+*/
 public func isPositionEmpty(position : BoardPosition) -> Bool
 {
   if( !isPointExisting(point : position))
@@ -394,7 +454,11 @@ public func isPositionEmpty(position : BoardPosition) -> Bool
 }
 
 
-
+/*
+* Returns position on the board with the colour with which is on the board
+* @param position - the cell position on the board
+* @return position on the board with the colour with which is on the board
+*/
 public func getPositionWithColour(position : String ) throws -> BoardPosition
 {
    try validateSinglePosition(position : position )
@@ -418,28 +482,13 @@ public func getPositionWithColour(position : String ) throws -> BoardPosition
 }
 
 
-public func getPositionWithPlayerColour(position : String , colour : String ) throws -> BoardPosition
-{
-   try validateSinglePosition(position : position )
 
-  
-    let yCordinate = try PositionParser.convertLetterToPosition(position : position[0]) 
-    var xCordinate = 0
-    if let  x = Int(String(position[1]))
-    {
-      xCordinate = x
-    }
-    else
-    {
-       throw NineMortisError.runtimeError("Illegal value \(position[1])  ")
-    }
-    xCordinate = PositionParser.convertInputIndexToPosition(position : xCordinate)
-    return BoardPosition(xCordinate : xCordinate , yCordinate : yCordinate , colour : colour)
-
-}
-
-
-
+/*
+Checks if position is existing and valid for a player to place a piece
+* @param xPosition - the x position on the axis of the point
+* @param yPosition - the y position on the ordinate of the 
+* @return true if the position exists , else false.
+*/
 public func isPointExisting(xCordinate : Int , yCordinate : Int) -> Bool
 {
 
@@ -465,6 +514,12 @@ public func isPointExisting(xCordinate : Int , yCordinate : Int) -> Bool
 
 }
 
+/*
+Checks if position is existing and valid for a player to place a piece
+* @param point - point on the board
+* @return true if the position exists , else false.
+*/
+
 public func isPointExisting(point : BoardPosition) -> Bool
 {
   let xCordinate = point.getX()
@@ -473,7 +528,11 @@ public func isPointExisting(point : BoardPosition) -> Bool
 }
 
 
-
+/*  
+  Sets a position on the board to be empty
+* @param point - point on the board
+* @return true if the position exists , else false.
+*/
 public func removeAtPosition(point : BoardPosition)
 {      let xCordinate = point.getX()
        let yCordinate = point.getY()
@@ -483,7 +542,11 @@ public func removeAtPosition(point : BoardPosition)
   
 
 
-
+/*
+  
+* @param point - point on the board
+* @return true if the position exists , else false.
+*/
  public  func validateSinglePosition(position : String ) throws
   {
 
@@ -501,7 +564,7 @@ public func removeAtPosition(point : BoardPosition)
     try validatePositionLocation(xCordinate : startX , yCordinate : startY)
 
     try isPositionExisting(xCordinate: startX , yCordinate : startY , matX : getLength() , matY : getWidth()  )
-    ///check if it is in range 
+
 
 
 
@@ -522,7 +585,13 @@ public func removeAtPosition(point : BoardPosition)
         }
 
   }
-
+/*
+  
+* Validates if point has illegal characters
+  @xCordinate - the x cordinate
+  @yCordinate - the y cordinate
+* @return true if the position exists , else false.
+*/
  public   func validatePositionLocation(xCordinate : Character , yCordinate : Character) throws
   {
 
@@ -539,7 +608,11 @@ public func removeAtPosition(point : BoardPosition)
 
   }
 
-
+/* Validates if point is existing  on the board for a Player to play with
+  @xCordinate - the x cordinate
+  @yCordinate - the y cordinate
+* @return true if the position exists , else false.
+*/
     public  func isPositionExisting( xCordinate : Character , yCordinate : Character , matX : Int, matY : Int ) throws
   {
 

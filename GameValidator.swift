@@ -1,4 +1,6 @@
 
+/* Validates the moves of the players
+*/
 
 public class GameValidator
 {
@@ -12,7 +14,11 @@ public init(board : Board)
   self.board = board
 }
 
-
+/* Validates if a position is legal on the board
+@param position - position to be checked 
+@board - game board
+@throws - exception is thrown if the position is invalid
+*/
  public  func validateSinglePosition(position : String , board : Board) throws
   {
 
@@ -29,7 +35,7 @@ public init(board : Board)
   
     try validatePositionLocation(xCordinate : startX , yCordinate : startY)
 
-    try isPositionExisting(xCordinate: startX , yCordinate : startY , matX : board.getLength() , matY : board.getWidth() , board : board )
+    try isPositionExisting(xCordinate: startX , yCordinate : startY  , board : board )
     ///check if it is in range 
 
 
@@ -51,7 +57,11 @@ public init(board : Board)
         }
 
   }
-
+/* Validates if a position characters are valid
+@param xCordinate - axis cordinate to be checked 
+@param yCordinate - ordinate cordinate to be checked 
+@throws - exception is thrown if the position is invalid
+*/
  public   func validatePositionLocation(xCordinate : Character , yCordinate : Character) throws
   {
 
@@ -68,8 +78,13 @@ public init(board : Board)
 
   }
 
-
-    public  func isPositionExisting( xCordinate : Character , yCordinate : Character , matX : Int, matY : Int , board :Board) throws
+  /* Validates if a position characters are valid
+@param xCordinate - axis cordinate to be checked 
+@param yCordinate - ordinate cordinate to be checked 
+@board - game board
+@throws - exception is thrown if the position is invalid
+*/
+    public  func isPositionExisting( xCordinate : Character , yCordinate : Character  , board :Board) throws
   {
 
   

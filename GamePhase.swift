@@ -1,5 +1,6 @@
 
-
+/* class to represent each game phrase
+*/
 public class  GamePhase
 {
     var board : Board 

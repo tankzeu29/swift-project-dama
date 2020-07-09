@@ -1,5 +1,7 @@
 
-
+/*
+* All possible board cell colours
+*/
 public class BoardBoundElements
 {
 

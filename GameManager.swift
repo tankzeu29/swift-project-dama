@@ -1,6 +1,9 @@
 
 
-
+/*
+Initializes all game modules and 
+starts the game 
+*/
 
 public class GameManager{
 
