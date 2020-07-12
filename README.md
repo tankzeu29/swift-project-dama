@@ -9,6 +9,7 @@
 модулите в Xcode проект и да се направи Running Instance сочеща
 към main.swift в Application модула.
 
+gameFiles.zip - съдържа архивиран проекта на macOS
 Email : philipgrozdanov@abv.bg
 
 
