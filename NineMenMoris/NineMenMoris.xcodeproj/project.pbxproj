@@ -1,0 +1,350 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FB76261524B8F358002611D0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FB76261724B8F358002611D0 /* NineMenMoris */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NineMenMoris; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB76262124B8F36B002611D0 /* Application */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Application; path = ../Application; sourceTree = "<group>"; };
+		FB76262724B8F448002611D0 /* GameManager */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GameManager; path = ../GameManager; sourceTree = "<group>"; };
+		FB76262A24B8F687002611D0 /* CoreGame */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoreGame; path = ../CoreGame; sourceTree = "<group>"; };
+		FB76262D24B8FE15002611D0 /* GameExceptions */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GameExceptions; path = ../GameExceptions; sourceTree = "<group>"; };
+		FB76263424B907B1002611D0 /* BoardColours */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BoardColours; path = ../BoardColours; sourceTree = "<group>"; };
+		FB76263824B90B09002611D0 /* GameMessages */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GameMessages; path = ../GameMessages; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FB76261424B8F358002611D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FB76260E24B8F358002611D0 = {
+			isa = PBXGroup;
+			children = (
+				FB76263824B90B09002611D0 /* GameMessages */,
+				FB76263424B907B1002611D0 /* BoardColours */,
+				FB76262D24B8FE15002611D0 /* GameExceptions */,
+				FB76262A24B8F687002611D0 /* CoreGame */,
+				FB76262724B8F448002611D0 /* GameManager */,
+				FB76262124B8F36B002611D0 /* Application */,
+				FB76261924B8F358002611D0 /* NineMenMoris */,
+				FB76261824B8F358002611D0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FB76261824B8F358002611D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB76261724B8F358002611D0 /* NineMenMoris */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FB76261924B8F358002611D0 /* NineMenMoris */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NineMenMoris;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FB76261624B8F358002611D0 /* NineMenMoris */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB76261E24B8F358002611D0 /* Build configuration list for PBXNativeTarget "NineMenMoris" */;
+			buildPhases = (
+				FB76261324B8F358002611D0 /* Sources */,
+				FB76261424B8F358002611D0 /* Frameworks */,
+				FB76261524B8F358002611D0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB76263A24B90E0C002611D0 /* PBXTargetDependency */,
+				FB76263624B909C9002611D0 /* PBXTargetDependency */,
+				FB76262C24B8F724002611D0 /* PBXTargetDependency */,
+				FB76262924B8F4D8002611D0 /* PBXTargetDependency */,
+				FB76262624B8F426002611D0 /* PBXTargetDependency */,
+				FB76262324B8F38C002611D0 /* PBXTargetDependency */,
+			);
+			name = NineMenMoris;
+			productName = NineMenMoris;
+			productReference = FB76261724B8F358002611D0 /* NineMenMoris */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FB76260F24B8F358002611D0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = "Nеvena Ivanova";
+				TargetAttributes = {
+					FB76261624B8F358002611D0 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+				};
+			};
+			buildConfigurationList = FB76261224B8F358002611D0 /* Build configuration list for PBXProject "NineMenMoris" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FB76260E24B8F358002611D0;
+			productRefGroup = FB76261824B8F358002611D0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FB76261624B8F358002611D0 /* NineMenMoris */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FB76261324B8F358002611D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FB76262324B8F38C002611D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = FB76262224B8F38C002611D0 /* Application */;
+		};
+		FB76262624B8F426002611D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = FB76262524B8F426002611D0 /* Player */;
+		};
+		FB76262924B8F4D8002611D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = FB76262824B8F4D8002611D0 /* GameManager */;
+		};
+		FB76262C24B8F724002611D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = FB76262B24B8F724002611D0 /* CoreGame */;
+		};
+		FB76263624B909C9002611D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = FB76263524B909C9002611D0 /* BoardColours */;
+		};
+		FB76263A24B90E0C002611D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = FB76263924B90E0C002611D0 /* GameMessages */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FB76261C24B8F358002611D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FB76261D24B8F358002611D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		FB76261F24B8F358002611D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FB76262024B8F358002611D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FB76261224B8F358002611D0 /* Build configuration list for PBXProject "NineMenMoris" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB76261C24B8F358002611D0 /* Debug */,
+				FB76261D24B8F358002611D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB76261E24B8F358002611D0 /* Build configuration list for PBXNativeTarget "NineMenMoris" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB76261F24B8F358002611D0 /* Debug */,
+				FB76262024B8F358002611D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FB76262224B8F38C002611D0 /* Application */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Application;
+		};
+		FB76262524B8F426002611D0 /* Player */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Player;
+		};
+		FB76262824B8F4D8002611D0 /* GameManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GameManager;
+		};
+		FB76262B24B8F724002611D0 /* CoreGame */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreGame;
+		};
+		FB76263524B909C9002611D0 /* BoardColours */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BoardColours;
+		};
+		FB76263924B90E0C002611D0 /* GameMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GameMessages;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = FB76260F24B8F358002611D0 /* Project object */;
+}
